@@ -75,6 +75,21 @@ body {
   }
 }
 
+.container-full {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.title {
+  @include textParameters(
+    $color: $titleTextcolor,
+    $size: 18px,
+    $transform: uppercase,
+    $ls: 3.6px,
+    $weight: 700
+  );
+}
+
 /* Header styles start */
 .header {
   position: fixed;
@@ -114,9 +129,6 @@ body {
       $transform: uppercase,
       $ls: 2.6px
     );
-
-    &:nth-child(1) {
-    }
   }
 
   &__logo-link {
@@ -141,6 +153,7 @@ body {
 .intro {
   &__bg {
     min-height: 100vh;
+    background-attachment: fixed;
   }
 }
 /* Intro styles end */
@@ -148,6 +161,7 @@ body {
 /* About styles start */
 .about {
   padding: 118px 0 134px 0;
+  background-color: $aboutBgColor;
 
   &__container {
     max-width: 1080px;
@@ -167,13 +181,6 @@ body {
   }
 
   &__title {
-    @include textParameters(
-      $color: $titleTextcolor,
-      $size: 18px,
-      $transform: uppercase,
-      $ls: 3.6px,
-      $weight: 700
-    );
     margin-bottom: 24px;
   }
 
@@ -182,6 +189,83 @@ body {
   }
 }
 /* About styles end */
+
+/* Work styles start */
+.work {
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+
+  &__card {
+    &_lg {
+      grid-column: span 2;
+    }
+
+    &_sm {
+      margin-top: auto;
+    }
+
+    &_lg-pic {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &_content {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    &_icon {
+      padding-top: 70px;
+      margin-bottom: 30px;
+    }
+
+    &_icon-pic {
+      object-fit: cover;
+    }
+
+    &_title {
+      margin-bottom: 16px;
+    }
+
+    &_text {
+      max-width: 402px;
+      position: relative;
+      margin: 0 auto;
+      text-align: left;
+      text-align: justify;
+      @include textParameters($size: 16px, $lh: 30px);
+
+      &:after {
+        content: "";
+        position: absolute;
+        width: 50px;
+        top: 180px;
+        height: 1px;
+        left: 50%;
+        background-color: $textLineColor;
+        margin: 0px 0px 0px -25px;
+      }
+    }
+
+    &_sm-pic {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &_medium-pic {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+/* Work styles end */
 
 /* Footer styles start */
 
