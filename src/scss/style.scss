@@ -93,11 +93,12 @@ body {
 /* Header styles start */
 .header {
   position: fixed;
-  padding-top: 35px;
+  padding: 35px 0 35px 0;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 999;
+  background-color: $headerBgColor;
 
   &__container {
     max-width: 618px;
