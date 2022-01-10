@@ -145,6 +145,44 @@ body {
 }
 /* Intro styles end */
 
+/* About styles start */
+.about {
+  padding: 118px 0 134px 0;
+
+  &__container {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  &__body {
+    text-align: center;
+  }
+
+  &__icon {
+    margin-bottom: 34px;
+  }
+
+  &__icon-pic {
+    object-fit: cover;
+  }
+
+  &__title {
+    @include textParameters(
+      $color: $titleTextcolor,
+      $size: 18px,
+      $transform: uppercase,
+      $ls: 3.6px,
+      $weight: 700
+    );
+    margin-bottom: 24px;
+  }
+
+  &__text {
+    @include textParameters($lh: 34px);
+  }
+}
+/* About styles end */
+
 /* Footer styles start */
 
 /* Footer styles end */
