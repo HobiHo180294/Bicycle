@@ -45,6 +45,7 @@
   text-decoration: $decoration;
 }
 
+// Presets
 body {
   font-family: "Lato", sans-serif;
   @include textParameters();
@@ -55,6 +56,23 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+
+.ibg {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+
+  img {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 /* Header styles start */
@@ -74,6 +92,7 @@ body {
   &__row {
     display: flex;
     justify-content: center;
+    align-items: center;
   }
 
   &__nav {
@@ -88,7 +107,6 @@ body {
   }
 
   &__link {
-    padding: 0 5px;
     @include textParameters(
       $color: $headerLinkColor,
       $size: 13px,
@@ -96,6 +114,9 @@ body {
       $transform: uppercase,
       $ls: 2.6px
     );
+
+    &:nth-child(1) {
+    }
   }
 
   &__logo-link {
@@ -115,6 +136,14 @@ body {
   flex: 1 1 auto;
 }
 /* Main content styles end */
+
+/* Intro styles start */
+.intro {
+  &__bg {
+    min-height: 100vh;
+  }
+}
+/* Intro styles end */
 
 /* Footer styles start */
 
