@@ -451,5 +451,47 @@ body {
 /* Contact styles end */
 
 /* Footer styles start */
+.footer {
+  padding: 100px 0;
+  background-color: $graywhiteColor;
+
+  &__container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__contact {
+    @include textParameters($size: 16px, $weight: 700, $lh: 17.87px);
+
+    mark {
+      color: $contextTextcolor;
+      font-size: 14px;
+      font-style: italic;
+    }
+  }
+
+  &__social-link {
+    display: inline-block;
+    margin-right: 15px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &__social-pic {
+    object-fit: cover;
+  }
+
+  &__copyright {
+    @include textParameters($size: 14px, $lh: 17.87px);
+  }
+}
 
 /* Footer styles end */
