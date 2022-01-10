@@ -1,12 +1,14 @@
 /* Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
 
 @font-face {
-	font-family: 'MyriadPro-Regular';
-	src: url('../fonts/ofont.ru_Myriad Pro.eot');
-	src: local('☺'), url('../fonts/ofont.ru_Myriad Pro.woff') format('woff'), url('../fonts/ofont.ru_Myriad Pro.ttf') format('truetype'), url('../fonts/ofont.ru_Myriad Pro.svg') format('svg');
-	font-weight: normal;
-	font-style: normal;
+  font-family: "MyriadPro-Regular";
+  src: url("../fonts/ofont.ru_Myriad Pro.eot");
+  src: local("☺"), url("../fonts/ofont.ru_Myriad Pro.woff") format("woff"),
+    url("../fonts/ofont.ru_Myriad Pro.ttf") format("truetype"),
+    url("../fonts/ofont.ru_Myriad Pro.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
 }
 /* Fonts */
 
@@ -19,7 +21,8 @@
 // Adaptive font variables
 
 // Mixins
-@mixin textParameters($color: $contextTextcolor,
+@mixin textParameters(
+  $color: $contextTextcolor,
   $size: 18px,
   $style: normal,
   $weight: 400,
@@ -28,35 +31,84 @@
   $transform: none,
   $opacity: 1,
   $shadow: none,
-  $decoration: none) {
-    color: $color;
-    font-size: $size;
-    font-style: $style;
-    font-weight: $weight;
-    line-height: $lh;
-    letter-spacing: $ls;
-    text-transform: $transform;
-    opacity: $opacity;
-    text-shadow: $shadow;
-    text-decoration: $decoration;
+  $decoration: none
+) {
+  color: $color;
+  font-size: $size;
+  font-style: $style;
+  font-weight: $weight;
+  line-height: $lh;
+  letter-spacing: $ls;
+  text-transform: $transform;
+  opacity: $opacity;
+  text-shadow: $shadow;
+  text-decoration: $decoration;
 }
 
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   @include textParameters();
 }
 
 .wrapper {
-	min-height: 100%;
-	overflow: hidden;
-	display: flex;
-	flex-direction: column;
+  min-height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Header styles start */
+.header {
+  position: fixed;
+  padding-top: 35px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
 
+  &__container {
+    max-width: 618px;
+    margin: 0 auto;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__nav {
+    width: 100%;
+  }
+
+  &__list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &__link {
+    padding: 0 5px;
+    @include textParameters(
+      $color: $headerLinkColor,
+      $size: 13px,
+      $weight: 700,
+      $transform: uppercase,
+      $ls: 2.6px
+    );
+  }
+
+  &__logo-link {
+    padding: 0 5px;
+  }
+
+  &__logo-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
 /* Header styles end */
-
 
 /* Main content styles start */
 .content {
@@ -64,10 +116,6 @@ body {
 }
 /* Main content styles end */
 
-
 /* Footer styles start */
 
 /* Footer styles end */
-
-
-
