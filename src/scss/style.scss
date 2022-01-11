@@ -634,7 +634,7 @@ a {
       width: 100%;
       height: 100%;
       background-color: $graywhiteColor;
-      z-index: 2;
+      z-index: 3;
     }
 
     &__row {
@@ -709,6 +709,7 @@ a {
       overflow: auto;
       background-color: $headerBgColor;
       transition: all 0.3s ease 0s;
+      z-index: 2;
 
       &.active {
         top: 0;
