@@ -27,10 +27,26 @@
       <header class="header">
         <div class="header__container">
           <div class="header__row">
+            <div class="header__burger">
+              <span></span>
+            </div>
+
+            <div class="header__logo">
+              <a href="/" class="header__logo-link logo-link">
+                <img
+                  src="img/logos/company-logo.svg"
+                  alt="Company-logo"
+                  class="header__logo-pic logo-pic"
+                />
+              </a>
+            </div>
+
             <nav class="header__nav">
               <ul class="header__list">
                 <li class="header__item">
-                  <a href="#!" class="header__link">about us&emsp; &ensp;.</a>
+                  <a href="#!" class="header__link header__link_after">
+                    about us
+                  </a>
                 </li>
 
                 <li class="header__item">
@@ -48,7 +64,7 @@
                 </li>
 
                 <li class="header__item">
-                  <a href="#!" class="header__link">shop&emsp; &ensp;.</a>
+                  <a href="#!" class="header__link header__link_after">shop</a>
                 </li>
 
                 <li class="header__item">
@@ -108,119 +124,127 @@
         <section class="work">
           <div class="work__container container-full">
             <div class="work__cards">
-              <div class="work__card work__card_lg">
+              <div class="work__card_first lg-image">
                 <img
                   src="img/content/work/company-lg.jpg"
-                  alt="Bicycles-lg-first"
-                  class="work__card-pic work__card_lg-pic"
+                  alt="Company-lg-first"
+                  class="lg-image__lgpic"
                 />
               </div>
 
-              <div class="work__card work__card_content">
-                <div class="work__card_icon">
-                  <img
-                    src="img/icons/work/vintage-oliva-ico.svg"
-                    alt="vintage Oliva"
-                    class="work__card_icon-pic"
-                  />
-                </div>
+              <div class="work__card_second card-content">
+                <div class="card-content__body">
+                  <div class="card-content__icon">
+                    <img
+                      src="img/icons/work/vintage-oliva-ico.svg"
+                      alt="vintage Oliva"
+                      class="card-content___icon-pic"
+                    />
+                  </div>
 
-                <h2 class="work__card_title title">vintage Oliva</h2>
+                  <h2 class="card-content__title title">vintage Oliva</h2>
 
-                <p class="work__card_text">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived.
-                </p>
-
-                <div class="work__card-pic work__card_sm">
-                  <img
-                    src="img/content/work/company-sm.jpg"
-                    alt="Bicycles-sm"
-                    class="work__card_sm-pic"
-                  />
+                  <p class="card-content__text">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a
+                    type specimen book. It has survived.
+                  </p>
                 </div>
               </div>
 
-              <div class="work__card work__card_content">
-                <div class="work__card_icon">
-                  <img
-                    src="img/icons/work/la-boriosa-ico.svg"
-                    alt="La Boriosa"
-                    class="work__card_icon-pic"
-                  />
-                </div>
+              <div class="work__card_third sm-image">
+                <img
+                  src="img/content/work/company-sm.jpg"
+                  alt="Company-sm"
+                  class="sm-image__smpic"
+                />
+              </div>
 
-                <h2 class="work__card_title title">La Boriosa</h2>
+              <div class="work__card_fourth card-content">
+                <div class="card-content__body">
+                  <div class="card-content__icon">
+                    <img
+                      src="img/icons/work/la-boriosa-ico.svg"
+                      alt="La-boriosa"
+                      class="card-content___icon-pic"
+                    />
+                  </div>
 
-                <p class="work__card_text">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived.
-                </p>
+                  <h2 class="card-content__title title">La Boriosa</h2>
 
-                <div class="work__card-pic work__card_sm">
-                  <img
-                    src="img/content/work/vintage-sm.jpg"
-                    alt="Vintage-sm"
-                    class="work__card_sm-pic"
-                  />
+                  <p class="card-content__text">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a
+                    type specimen book. It has survived.
+                  </p>
                 </div>
               </div>
 
-              <div class="work__card work__card_lg">
+              <div class="work__card_fifth sm-image">
+                <img
+                  src="img/content/work/vintage-sm.jpg"
+                  alt="Vintage-sm"
+                  class="sm-image__smpic"
+                />
+              </div>
+
+              <div class="work__card_six lg-image">
                 <img
                   src="img/content/work/vintage-lg.jpg"
                   alt="Vintage-lg"
-                  class="work__card-pic work__card_lg-pic"
+                  class="lg-image__lgpic"
                 />
               </div>
 
-              <div class="work__card work__card_medium">
+              <div class="work__card_seventh medium-image">
                 <img
                   src="img/content/work/bicycles-medium-first.jpg"
                   alt="Bicycles-medium-first"
-                  class="work__card-pic work__card_medium-pic"
+                  class="medium-image__pic"
                 />
               </div>
 
-              <div class="work__card work__card_content">
-                <div class="work__card_icon">
-                  <img
-                    src="img/icons/work/bottle-ico.svg"
-                    alt="Retrò Bike - M. Hulot"
-                    class="work__card_icon-pic"
-                  />
-                </div>
+              <div class="work__card_eighth card-content">
+                <div class="card-content__body">
+                  <div class="card-content__icon">
+                    <img
+                      src="/img/icons/work/bottle-ico.svg"
+                      alt="Retrò Bike - M. Hulot"
+                      class="card-content___icon-pic"
+                    />
+                  </div>
 
-                <h2 class="work__card_title title">retrò Bike - M. Hulot</h2>
+                  <h2 class="card-content__title title">
+                    retrò Bike - M. Hulot
+                  </h2>
 
-                <p class="work__card_text">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived.
-                </p>
-
-                <div class="work__card-pic work__card_sm">
-                  <img
-                    src="img/content/work/bicycles-sm.png"
-                    alt="Bicycles-sm"
-                    class="work__card_sm-pic"
-                  />
+                  <p class="card-content__text">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a
+                    type specimen book. It has survived.
+                  </p>
                 </div>
               </div>
 
-              <div class="work__card work__card_medium">
+              <div class="work__card_ninth sm-image">
+                <img
+                  src="img/content/work/bicycles-sm.png"
+                  alt="Bicycles-sm"
+                  class="sm-image__smpic"
+                />
+              </div>
+
+              <div class="work__card_tenth medium-image">
                 <img
                   src="img/content/work/bicycles-medium-second.jpg"
                   alt="Bicycles-medium-second"
-                  class="work__card-pic work__card_medium-pic"
+                  class="medium-image__pic"
                 />
               </div>
             </div>
@@ -435,7 +459,7 @@
     </div>
 
     <!-- Scripts -->
-    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="js/main.js"></script>
     <!-- Scripts -->
   </body>

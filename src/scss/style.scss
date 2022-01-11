@@ -50,6 +50,15 @@ body {
   font-family: "Lato", sans-serif;
   @include textParameters();
 }
+a {
+  transition: 0.5s;
+
+  &:hover,
+  &:active,
+  &:focus {
+    opacity: 0.85;
+  }
+}
 
 .wrapper {
   min-height: 100%;
@@ -71,6 +80,7 @@ body {
     top: 0;
     left: 0;
     opacity: 0;
+    object-fit: cover;
     visibility: hidden;
   }
 }
@@ -93,7 +103,7 @@ body {
 /* Header styles start */
 .header {
   position: fixed;
-  padding: 35px 0 35px 0;
+  padding: 35px 10px;
   top: 0;
   left: 0;
   width: 100%;
@@ -103,6 +113,14 @@ body {
   &__container {
     max-width: 618px;
     margin: 0 auto;
+  }
+
+  &__burger {
+    display: none;
+  }
+
+  &__logo {
+    display: none;
   }
 
   &__row {
@@ -130,12 +148,14 @@ body {
       $transform: uppercase,
       $ls: 2.6px
     );
-  }
 
-  &__logo-pic {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    &_after {
+      &::after {
+        content: ".";
+        display: inline-block;
+        padding-left: 35px;
+      }
+    }
   }
 }
 /* Header styles end */
@@ -157,7 +177,7 @@ body {
 
 /* About styles start */
 .about {
-  padding: 118px 0 134px 0;
+  padding: 118px 10px 134px 10px;
   background-color: $graywhiteColor;
 
   &__container {
@@ -191,82 +211,149 @@ body {
 .work {
   &__cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(333px, 1fr));
+    grid-template-rows: repeat(9, minmax(200px, 1fr));
+    grid-template-areas:
+      "work__card_first work__card_first work__card_second"
+      "work__card_first work__card_first work__card_second"
+      "work__card_first work__card_first work__card_third"
+      "work__card_fourth work__card_six work__card_six"
+      "work__card_fourth work__card_six work__card_six"
+      "work__card_fifth work__card_six work__card_six"
+      "work__card_seventh work__card_eighth work__card_tenth"
+      "work__card_seventh work__card_eighth work__card_tenth"
+      "work__card_seventh work__card_ninth work__card_tenth";
   }
 
   &__card {
-    &_lg {
-      grid-column: span 2;
+    &_first {
+      grid-area: work__card_first;
     }
 
-    &_sm {
-      margin-top: auto;
+    &_second {
+      grid-area: work__card_second;
     }
 
-    &_lg-pic {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    &_third {
+      grid-area: work__card_third;
     }
 
-    &_content {
-      display: flex;
-      flex-direction: column;
-      text-align: center;
+    &_fourth {
+      grid-area: work__card_fourth;
     }
 
-    &_icon {
-      padding-top: 70px;
-      margin-bottom: 30px;
+    &_fifth {
+      grid-area: work__card_fifth;
     }
 
-    &_icon-pic {
-      object-fit: cover;
+    &_six {
+      grid-area: work__card_six;
     }
 
-    &_title {
-      margin-bottom: 16px;
+    &_seventh {
+      grid-area: work__card_seventh;
     }
 
-    &_text {
-      max-width: 402px;
-      position: relative;
-      margin: 0 auto;
-      text-align: left;
-      text-align: justify;
-      @include textParameters($size: 16px, $lh: 30px);
-
-      &:after {
-        content: "";
-        position: absolute;
-        width: 50px;
-        top: 180px;
-        height: 1px;
-        left: 50%;
-        background-color: $textLineColor;
-        margin: 0px 0px 0px -25px;
-      }
+    &_eighth {
+      grid-area: work__card_eighth;
     }
 
-    &_sm-pic {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    &_ninth {
+      grid-area: work__card_ninth;
     }
 
-    &_medium-pic {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    &_tenth {
+      grid-area: work__card_tenth;
     }
   }
 }
+
+.lg-image {
+  position: relative;
+
+  &__lgpic {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.card-content {
+  text-align: center;
+  position: relative;
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__icon {
+    margin-bottom: 30px;
+  }
+
+  &__title {
+    margin-bottom: 26px;
+  }
+
+  &__text {
+    max-width: 422px;
+    padding: 0 10px 30px 10px;
+    position: relative;
+    text-align: left;
+    text-align: justify;
+    @include textParameters($size: 16px, $lh: 30px);
+
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 50px;
+      bottom: 0px;
+      height: 1px;
+      left: 50%;
+      background-color: $textLineColor;
+      margin: 0px 0px 0px -25px;
+    }
+  }
+}
+
+.medium-image {
+  position: relative;
+
+  &__pic {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.sm-image {
+  position: relative;
+
+  &__smpic {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
 /* Work section styles end */
 
 /* Twitter section styles start */
 .twitter {
-  padding: 124px 0 68px 0;
+  padding: 124px 10px 68px 10px;
   background-color: $graywhiteColor;
 
   &__container {
@@ -339,12 +426,19 @@ body {
 .shop {
   &__cards {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(267px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(267px, 1fr));
   }
 
   &__card {
+    &_square {
+      position: relative;
+    }
+
     &_square-pic {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -352,9 +446,13 @@ body {
 
     &_ver {
       grid-row: span 2;
+      position: relative;
     }
 
     &_ver-pic {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -393,7 +491,7 @@ body {
 
 /* Contact styles start */
 .contact {
-  padding: 110px 0;
+  padding: 110px 10px;
 
   &__container {
     max-width: 534px;
@@ -428,7 +526,7 @@ body {
       border: 1px solid $inputBorderColor;
       @include textParameters($color: $textInputColor, $size: 20px);
 
-      &:placeholder {
+      &::placeholder {
         @include textParameters($color: $textInputColor, $size: 20px);
       }
     }
@@ -452,7 +550,7 @@ body {
 
 /* Footer styles start */
 .footer {
-  padding: 100px 0;
+  padding: 100px 10px;
   background-color: $graywhiteColor;
 
   &__container {
@@ -464,6 +562,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
   }
 
   &__contact {
@@ -493,5 +592,242 @@ body {
     @include textParameters($size: 14px, $lh: 17.87px);
   }
 }
-
 /* Footer styles end */
+
+/* Media queries start */
+@media screen and (max-width: 1000px) {
+  /* Work section styles start */
+  .work {
+    &__cards {
+      grid-template-columns: repeat(2, minmax(320px, 1fr));
+      grid-template-rows: repeat(10, minmax(200px, 1fr));
+      grid-template-areas:
+        "work__card_first work__card_first"
+        "work__card_first work__card_first"
+        "work__card_second work__card_fourth"
+        "work__card_second work__card_fourth"
+        "work__card_third work__card_fifth"
+        "work__card_six work__card_six"
+        "work__card_six work__card_six"
+        "work__card_seventh work__card_eighth"
+        "work__card_tenth work__card_eighth"
+        "work__card_tenth work__card_ninth";
+    }
+  }
+  /* Work section styles end */
+}
+
+@media screen and (max-width: 650px) {
+  body.lock {
+    overflow: hidden;
+  }
+
+  /* Header styles start */
+  .header {
+    background: none;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: $graywhiteColor;
+      z-index: 2;
+    }
+
+    &__row {
+      justify-content: space-between;
+    }
+
+    &__burger {
+      display: block;
+      position: relative;
+      width: 30px;
+      height: 20px;
+      z-index: 3;
+
+      span {
+        position: absolute;
+        background-color: $headerLinkColor;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        top: 9px;
+        transition: all 0.3s ease 0s;
+      }
+
+      &::before,
+      &::after {
+        content: "";
+        background-color: $headerLinkColor;
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        left: 0;
+        transition: all 0.3s ease 0s;
+      }
+
+      &::before {
+        top: 0;
+      }
+
+      &::after {
+        bottom: 0;
+      }
+
+      &.active {
+        &::before {
+          transform: rotate(45deg);
+          top: 9px;
+        }
+
+        span {
+          transform: scale(0);
+        }
+
+        &::after {
+          transform: rotate(-45deg);
+          bottom: 9px;
+        }
+      }
+    }
+
+    &__logo {
+      display: block;
+      position: relative;
+      z-index: 3;
+    }
+
+    &__nav {
+      position: fixed;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: $headerBgColor;
+      transition: all 0.3s ease 0s;
+
+      &.active {
+        top: 0;
+      }
+    }
+
+    &__list {
+      display: block;
+      position: absolute;
+      left: 0;
+      text-align: center;
+      margin: 0 auto;
+      padding-top: 80px;
+      width: 100%;
+      top: 50%;
+      transform: translate(0, -50%);
+    }
+
+    &__item {
+      margin: 0 0 40px 0;
+
+      &:nth-child(3) {
+        display: none;
+      }
+
+      &:last-child {
+        margin: 0;
+      }
+    }
+
+    &__link {
+      font-size: 26px;
+
+      &_after {
+        &::after {
+          content: "";
+          padding: 0;
+        }
+      }
+    }
+  }
+  /* Header styles end */
+
+  /* About section styles start */
+  .about {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  /* About section styles end */
+
+  /* Work section styles start */
+  .work {
+    &__cards {
+      grid-template-columns: repeat(1, minmax(320px, 1fr));
+      grid-template-rows: repeat(15, minmax(200px, 1fr));
+      grid-template-areas:
+        "work__card_first"
+        "work__card_first"
+        "work__card_second"
+        "work__card_second"
+        "work__card_third"
+        "work__card_six"
+        "work__card_six"
+        "work__card_fourth"
+        "work__card_fourth"
+        "work__card_fifth"
+        "work__card_seventh"
+        "work__card_seventh"
+        "work__card_eighth"
+        "work__card_eighth"
+        "work__card_ninth";
+    }
+  }
+  /* Work section styles end */
+
+  /* Twitter section styles start */
+  .twitter {
+    padding-top: 80px;
+  }
+  /* Twitter section styles end */
+
+  /* Contact styles start */
+  .contact {
+    padding-top: 80px;
+    padding-bottom: 80px;
+
+    &__form {
+      &_items {
+        flex-direction: column;
+      }
+
+      &_field {
+        flex: 0 1 50px;
+        margin-bottom: 10px;
+      }
+
+      &_submit {
+        flex: 0 1 20px;
+      }
+    }
+  }
+  /* Contact styles end */
+
+  /* Footer styles start */
+  .footer {
+    padding: 50px 10px;
+    &__row {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    &__contact {
+      margin-bottom: 20px;
+    }
+
+    &__social {
+      margin-bottom: 20px;
+    }
+  }
+  /* Footer styles end */
+}
+/* Media queries end */
