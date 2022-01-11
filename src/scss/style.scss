@@ -700,6 +700,11 @@ a {
       z-index: 3;
     }
 
+    &__logo-pic {
+      width: 50px;
+      height: 50px;
+    }
+
     &__nav {
       position: fixed;
       top: -100%;
