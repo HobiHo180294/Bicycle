@@ -1,10 +1,15 @@
+import path from 'path';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 import { devMode, prodMode } from '../variables/_webpack-config-variables.mjs';
 import moduleRules from '../objects/moduleRules.mjs';
+
+const __dirname =
+  'E:/MyLife/Germany/Reutlingen University/WS/WEB-programming/Project/Bicycle/';
 
 function genFilename(ext) {
   return devMode ? `[name].${ext}` : `[name].[contenthash].${ext}`;
@@ -31,9 +36,26 @@ function useWebpackPlugins() {
       minify: {
         collapseWhitespace: prodMode,
       },
+      chunks: ['main'],
+    }),
+    new HtmlWebpackPlugin({
+      template: './pages/login/index.html',
+      filename: 'login.html',
+      minify: {
+        collapseWhitespace: prodMode,
+      },
+      chunks: ['login'],
     }),
     new MiniCssExtractPlugin({
       filename: genFilename('css'),
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src/assets/php/'),
+          to: path.resolve(__dirname, 'dist/assets/php/'),
+        },
+      ],
     }),
     new ESLintPlugin(),
   ];
@@ -48,6 +70,8 @@ function buildModuleRules() {
     moduleRules.fontRules,
     moduleRules.imgRules,
     moduleRules.jsRules,
+    moduleRules.videoRules,
+    moduleRules.phpRules,
   ];
 
   return rules;

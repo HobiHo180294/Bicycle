@@ -1,4 +1,5 @@
 // IMPORT
+import './index.html';
 import './style.scss';
 
 // Function for inverting custom image to background image

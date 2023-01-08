@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Head-->
+  <head>
+    <!-- Title -->
+    <title>Bicycle</title>
+
+    <!-- SEO -->
+    <meta name="description" content="" />
+
+    <!-- Charset -->
+    <meta charset="UTF-8" />
+
+    <!-- Adaptive meta tegs -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <!-- Body-->
+  <body>
+    <div class="wrapper">
+      <!-- Page start -->
+      <main class="page">
+        <div class="page__login login">
+          <div class="login__container">
+            <div class="login__body">
+              <div class="login__desc desc">
+                <div class="desc__main">
+                  <div class="desc__logo logo">
+                    <img
+                      src="../../assets/images/login/logos/login-logo.png"
+                      alt="Shop Logo"
+                      class="logo_pic"
+                    />
+                  </div>
+
+                  <p class="desc__text">
+                    The best way to look stylish on a budget is to try
+                    second-hand,
+                    <br />
+                    bargain hunting, and vintage.
+                  </p>
+                </div>
+              </div>
+
+              <div class="login__area area-login">
+                <div class="area-login__wrap">
+                  <div class="area-login__header header-login">
+                    <h2 class="header-login__title title">
+                      Welcome to our Shop!
+                    </h2>
+                    <p class="header-login__text">Log in to your account</p>
+                  </div>
+
+                  <form
+                    action="../../assets/php/connect.php"
+                    method="post"
+                    novalidate
+                    class="area-login__form form"
+                  >
+                    <div class="form__group">
+                      <fieldset class="form__group_primary">
+                        <div class="form__email_wrap email _user-info">
+                          <input
+                            required
+                            type="email"
+                            id="mail"
+                            autocomplete="off"
+                            minlength="5"
+                            placeholder=" "
+                            class="email__field _user-info__field"
+                          />
+                          <div class="area-login__form_error"></div>
+                          <label
+                            class="email__label _user-info__label"
+                            for="mail"
+                          >
+                            Email
+                          </label>
+                        </div>
+
+                        <div class="form__password_wrap password _user-info">
+                          <input
+                            required
+                            type="password"
+                            id="pass"
+                            autocomplete="off"
+                            placeholder=" "
+                            class="password__field _user-info__field"
+                          />
+                          <div class="area-login__form_error"></div>
+                          <label
+                            class="password__label _user-info__label"
+                            for="pass"
+                          >
+                            Password
+                          </label>
+                        </div>
+                      </fieldset>
+
+                      <fieldset class="form__group_secondary">
+                        <button type="submit" class="form__email-continue">
+                          Continue with Email
+                        </button>
+                      </fieldset>
+                    </div>
+                  </form>
+
+                  <div class="area-login__footer footer-login">
+                    <span class="footer-login__have-an-account">
+                      Don't have an account?
+                    </span>
+                    <button class="footer-login__register">Register</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <!-- Page end -->
+    </div>
+  </body>
+</html>

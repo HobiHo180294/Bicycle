@@ -61,5 +61,20 @@ export default class ModuleRulesBuilder {
       exclude: /(node_modules|bower_components)/,
       use: buildJSLoaders(),
     };
+    this.videoRules = {
+      test: /\.(mp4|webm)$/i,
+      type: 'asset/resource',
+      generator: {
+        filename: 'assets/videos/[name][ext]',
+      },
+    };
+    this.phpRules = {
+      test: /\.(php)$/i,
+      use: ['html-minify', 'php-loader'],
+      type: 'asset/resource',
+      generator: {
+        filename: 'assets/php/[name][ext]',
+      },
+    };
   }
 }

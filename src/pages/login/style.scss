@@ -1,0 +1,232 @@
+// Modules
+@use '../../scss/modules/reset' as reset;
+
+// Fonts
+@import '../../scss/modules/fonts';
+
+// Palette
+@import '../../scss/modules/login/palette';
+
+// Templates
+@import '../../scss/modules/templates';
+
+// Functions
+@import '../../scss/modules/functions';
+
+// Mixins
+@import '../../scss/modules/mixins';
+
+/* Presets and custom styles*/
+body {
+  @extend %loginBasicTextParameters;
+}
+
+.wrapper {
+  @extend %wrapper;
+}
+
+._container {
+  @extend %container;
+}
+
+._user-info {
+  @extend ._user-info;
+}
+
+.brucira {
+  @extend %bruciraLogoSize;
+}
+
+.title {
+  @extend %title;
+}
+/* Presets and custom styles*/
+
+/* Page styles start */
+.page {
+  flex: 1 1 auto;
+}
+
+.login {
+  &__container {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  &__body {
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 100vh;
+    justify-content: space-between;
+  }
+
+  &__desc {
+    padding: 16px;
+  }
+
+  &__area {
+    padding: 32px 64px;
+  }
+}
+
+.desc {
+  position: relative;
+  flex: 0 1 60%;
+  background: $grayBg url(../../assets/images/login/content/bicycle-bg.jpg) 50%
+    0 / cover no-repeat;
+
+  &__main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+
+    > * {
+      margin: 0 auto;
+    }
+  }
+
+  &__text {
+    color: $white;
+    line-height: percentlh(22, 14);
+    margin-bottom: 50px;
+  }
+}
+
+.logo {
+  max-width: 300px;
+  &_pic {
+    width: 100%;
+  }
+}
+
+.area-login {
+  flex: 0 1 40%;
+
+  &__wrap {
+    padding-top: 20px;
+  }
+
+  &__header {
+    &:not(:last-child) {
+      margin-bottom: 14px;
+    }
+  }
+
+  &__form {
+    &:not(:last-child) {
+      margin-bottom: 30px;
+    }
+  }
+}
+
+.header-login {
+  font-family: 'Lato', sans-serif;
+  &__title {
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__text {
+    font-weight: 500;
+  }
+}
+
+.form {
+  &__group {
+    &_primary {
+      > * {
+        &:not(:last-child) {
+          margin-bottom: 15px;
+        }
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 15px;
+      }
+    }
+
+    &_secondary {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      > * {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 14px;
+      }
+    }
+  }
+
+  &__email-continue {
+    background-color: $lightgreen;
+    border: 1px solid $shopButtonBorderColor;
+    border-radius: 2px;
+    color: $white;
+    font-weight: 500;
+    transition: all 0.2s ease 0s;
+    &:hover,
+    &:active {
+      box-shadow: $buttonEmailHover 0px 3px 6px;
+      opacity: 0.9;
+    }
+  }
+}
+
+.proposal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__forgot-password {
+    display: inline-block;
+    margin-left: auto;
+    color: $lightgreen2;
+  }
+}
+
+.footer-login {
+  &__register {
+    background: none;
+    border: none;
+    color: $lightgreen2;
+  }
+}
+/* Page styles end */
+
+/* Footer styles start */
+
+/* Footer styles end */
+
+/* Media queries */
+@media screen and (max-width: 900px) {
+  .login {
+    &__area {
+      padding: 8px 32px 16px;
+    }
+
+    &__body {
+      position: relative;
+    }
+  }
+  .desc {
+    position: relative;
+    flex: 0 1 100%;
+    min-height: 80vh;
+  }
+
+  .area-login {
+    flex: 0 1 100%;
+  }
+}
+
+.area-login__form_error {
+  color: red;
+  display: block;
+  width: 100%;
+}
+
+/* Media queries */
