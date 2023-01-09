@@ -8,8 +8,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import { devMode, prodMode } from '../variables/_webpack-config-variables.mjs';
 import moduleRules from '../objects/moduleRules.mjs';
 
-const __dirname =
-  'E:/MyLife/Germany/Reutlingen University/WS/WEB-programming/Project/Bicycle/';
+const __dirname = 'E:/Xampp/htdocs/web-shop/Bicycle';
 
 function genFilename(ext) {
   return devMode ? `[name].${ext}` : `[name].[contenthash].${ext}`;
