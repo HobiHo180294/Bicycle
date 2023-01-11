@@ -45,6 +45,14 @@ function useWebpackPlugins() {
       },
       chunks: ['login'],
     }),
+    new HtmlWebpackPlugin({
+      template: './pages/reassign/index.html',
+      filename: 'reassign.html',
+      minify: {
+        collapseWhitespace: prodMode,
+      },
+      chunks: ['reassign'],
+    }),
     new MiniCssExtractPlugin({
       filename: genFilename('css'),
     }),

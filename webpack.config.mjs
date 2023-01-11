@@ -29,6 +29,7 @@ export default {
   entry: {
     main: ['@babel/polyfill', '@main/script.mjs'],
     login: ['@babel/polyfill', '@login/script.mjs'],
+    reassign: ['@babel/polyfill', '@reassign/script.mjs'],
   },
 
   output: {
@@ -42,6 +43,7 @@ export default {
       '@': path.resolve(__dirname, 'src'),
       '@main': path.resolve(__dirname, 'src/pages/main'),
       '@login': path.resolve(__dirname, 'src/pages/login'),
+      '@reassign': path.resolve(__dirname, 'src/pages/reassign'),
       '@html-modules': path.resolve(__dirname, 'src/html/modules'),
       '@scss-modules': path.resolve(__dirname, 'src/scss/modules'),
       '@js-modules': path.resolve(__dirname, 'src/js/modules'),

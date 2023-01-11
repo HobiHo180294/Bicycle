@@ -10,4 +10,12 @@ function removeHash() {
   );
 }
 
-export { removeDOMElement, removeHash };
+function disableButton(button) {
+  button.setAttribute('disabled', '');
+}
+
+function enableButton(button) {
+  button.removeAttribute('disabled', '');
+}
+
+export { removeDOMElement, removeHash, enableButton, disableButton };

@@ -1,6 +1,11 @@
 import './index.html';
 import './style.scss';
-import validateLoginForm from '../../js/modules/login/functions/_validation.mjs';
+import $ from 'jquery';
+import {
+  validateEnterForm,
+  restrictDuplicateUsername,
+  removeValidationError,
+} from '../../js/modules/login/functions/_validation.mjs';
 import {
   onPageToggle,
   reloadPage,
@@ -8,15 +13,18 @@ import {
 } from '../../js/modules/login/functions/_toggle-registr-login-page.mjs';
 import { removeHash } from '../../js/modules/functions/_custom-funcs.mjs';
 
+function removeErrorEmptyField(field) {
+  if (field.value === '' && field.classList.contains('_error-validate')) {
+    removeValidationError(field);
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  const userEmailFieldID = document.getElementById('user-email');
+
   const continueWithEmailButton = document.querySelector(
     '.form__email-continue'
   );
-
-  const loginForm = document.querySelector('.area-login__form');
-
-  // Validation Login Page
-  validateLoginForm();
 
   // Toggling to registration page
   buttonToRegistrationPage.addEventListener('click', () => {
@@ -29,12 +37,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (window.location.hash === '#registration') onPageToggle();
 
+  // Prevent username duplications with ajax function and jquery
+  // eslint-disable-next-line func-names
+  $(userEmailFieldID).on('keyup', function () {
+    const userEmailValue = $(this).val();
+
+    if (userEmailValue) restrictDuplicateUsername(userEmailValue);
+
+    removeErrorEmptyField(userEmailFieldID);
+  });
+
+  // UX
+  userEmailFieldID.addEventListener('focus', () =>
+    removeErrorEmptyField(userEmailFieldID)
+  );
+
+  // Send form to the server
   continueWithEmailButton.addEventListener('click', () => {
-    if (window.location.hash === '#registration') {
-      removeHash();
-      loginForm.submit();
-      loginForm.reset();
-      alert('Please wait...');
-    }
+    if (window.location.hash === '#registration') validateEnterForm();
   });
 });
+
+/*
+ !!! REFACTORRED CODE
+  Validation Login Page
+  validateEnterForm();
+
+
+  const errorValidateEmailField = document.querySelector('.error-email');
+
+
+  isUserNameExist(idCustomerEmail);
+  if (isUserNameExist(idCustomerEmail)) {
+    userEmail.classList.add('_error-validate');
+    userEmail.nextElementSibling.textContent =
+      'This user is already existed!';
+  } else {
+    userEmail.classList.remove('_error-validate');
+    userEmail.nextElementSibling.textContent = '';
+  }
+*/
