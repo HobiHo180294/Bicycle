@@ -38,6 +38,14 @@ function useWebpackPlugins() {
       chunks: ['main'],
     }),
     new HtmlWebpackPlugin({
+      template: '../../../../pages/catalog/catalog.html',
+      filename: 'catalog.html',
+      minify: {
+        collapseWhitespace: prodMode,
+      },
+      chunks: ['catalog'],
+    }),
+    new HtmlWebpackPlugin({
       template: './pages/login/index.html',
       filename: 'login.html',
       minify: {
