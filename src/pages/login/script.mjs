@@ -4,20 +4,16 @@ import $ from 'jquery';
 import {
   validateEnterForm,
   restrictDuplicateUsername,
-  removeValidationError,
 } from '../../js/modules/login/functions/_validation.mjs';
 import {
   onPageToggle,
   reloadPage,
   buttonToRegistrationPage,
 } from '../../js/modules/login/functions/_toggle-registr-login-page.mjs';
-import { removeHash } from '../../js/modules/functions/_custom-funcs.mjs';
-
-function removeErrorEmptyField(field) {
-  if (field.value === '' && field.classList.contains('_error-validate')) {
-    removeValidationError(field);
-  }
-}
+import {
+  removeHash,
+  removeErrorEmptyField,
+} from '../../js/modules/functions/_custom-funcs.mjs';
 
 document.addEventListener('DOMContentLoaded', () => {
   const userEmailFieldID = document.getElementById('user-email');
@@ -44,12 +40,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (userEmailValue) restrictDuplicateUsername(userEmailValue);
 
-    removeErrorEmptyField(userEmailFieldID);
+    removeErrorEmptyField(userEmailFieldID, continueWithEmailButton);
   });
 
   // UX
   userEmailFieldID.addEventListener('focus', () =>
-    removeErrorEmptyField(userEmailFieldID)
+    removeErrorEmptyField(userEmailFieldID, continueWithEmailButton)
   );
 
   // Send form to the server

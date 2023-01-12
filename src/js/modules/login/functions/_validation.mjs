@@ -3,6 +3,9 @@ import {
   removeHash,
   enableButton,
   disableButton,
+  submitForm,
+  showValidationError,
+  removeValidationError,
 } from '../../functions/_custom-funcs.mjs';
 
 // Form variables
@@ -28,16 +31,6 @@ function validateEmail(email) {
   return regExpEmail.test(String(email));
 }
 
-function showValidationError(targetField, message) {
-  targetField.classList.add('_error-validate');
-  targetField.nextElementSibling.textContent = message;
-}
-
-function removeValidationError(targetField) {
-  targetField.classList.remove('_error-validate');
-  targetField.nextElementSibling.textContent = '';
-}
-
 function restrictDuplicateUsername(userEmailValue) {
   $.ajax({
     url: './assets/php/login/restrict-duplicates.php',
@@ -60,11 +53,6 @@ function restrictDuplicateUsername(userEmailValue) {
       }
     },
   });
-}
-
-function submitForm(form) {
-  form.submit();
-  form.reset();
 }
 
 // Form Validation Function (main function)
@@ -109,7 +97,12 @@ function validateEnterForm() {
 }
 // Form Validation
 
-export { validateEnterForm, restrictDuplicateUsername, removeValidationError };
+export {
+  validateEnterForm,
+  restrictDuplicateUsername,
+  removeValidationError,
+  showValidationError,
+};
 
 /*  
     !!! REFACTORRED CODE

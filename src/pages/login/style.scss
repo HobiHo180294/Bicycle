@@ -173,6 +173,16 @@ body {
       box-shadow: $buttonEmailHover 0px 3px 6px;
       opacity: 0.9;
     }
+
+    &:disabled {
+      opacity: 0.5;
+
+      &:hover,
+      &:active {
+        box-shadow: none;
+        opacity: 0.5;
+      }
+    }
   }
 }
 

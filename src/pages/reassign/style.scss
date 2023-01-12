@@ -1,3 +1,169 @@
-body {
-  background-color: red;
+//  IMPORT
+@import '../../scss/modules/reset';
+
+@import '../../scss/modules/fonts';
+
+@import '../../scss/modules/reassign/palette';
+
+@import '../../scss/modules/reassign/templates';
+
+// Vars
+$formField: '.form-field';
+
+// PRESET
+.wrapper {
+  @extend %wrapper;
+}
+
+._container {
+  @extend %container;
+}
+// Main page styles
+.page {
+  flex: 1 1 auto;
+  background: url('../../assets/images/reassign/reassign-bg.png') 50% 50% /
+    cover no-repeat;
+
+  &__reassign {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+}
+
+.reassign {
+  &__body {
+    padding: 20px 180px;
+  }
+}
+
+.body-reassign {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 650px;
+  border-radius: 20px;
+  background-color: $coldTurkey;
+
+  &__top {
+    margin-bottom: 40px;
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+  }
+
+  &__title {
+    margin-bottom: 20px;
+    color: $dark;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 3.6px;
+    text-transform: uppercase;
+  }
+
+  &__text {
+    color: $trout;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 30px;
+  }
+
+  &__form {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  &__error {
+    padding-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: $dark;
+  }
+}
+
+.form-confirmation {
+  &__group {
+    > * {
+      &:not(:last-child) {
+        margin-bottom: 30px;
+      }
+    }
+  }
+}
+.group-form {
+  text-align: center;
+}
+
+.form-field {
+  position: relative;
+
+  &__input {
+    width: 100%;
+    height: 50px;
+    border: 1px solid $mercury;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 500;
+    font-size: 18px;
+    border-radius: 2px;
+    outline: none;
+    padding: 0 15px;
+    background-color: transparent;
+    transition: all 0.3s ease 0s;
+
+    &:focus {
+      border-color: $mobster;
+    }
+  }
+
+  &__label {
+    position: absolute;
+    font-family: 'Times New Roman', Times, serif;
+    left: 15px;
+    top: 15px;
+    font-weight: 500;
+    font-size: 16px;
+    background-color: $coldTurkey;
+    color: $trout;
+    padding: 0 5px;
+    cursor: text;
+    transition: all 0.3s ease 0s;
+  }
+
+  &__input:focus ~ &__label,
+  &__input:not(:placeholder-shown)#{$formField}__input:not(:focus) ~ &__label {
+    top: -10px;
+    left: 20px;
+    font-size: 11px;
+    color: $mobster;
+  }
+
+  &__error {
+    padding-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: $dark;
+  }
+}
+
+.reassign-button {
+  background-color: $trout;
+  border: 1px solid $trout;
+  border-radius: 2px;
+  color: $mercury;
+  font-weight: 500;
+  padding: 14px 20px;
+  transition: all 0.5s ease 0s;
+
+  &:hover,
+  &:active {
+    color: $trout;
+    background-color: $coldTurkey;
+  }
 }
