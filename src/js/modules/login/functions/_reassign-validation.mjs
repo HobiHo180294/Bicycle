@@ -3,6 +3,7 @@ import {
   submitForm,
   showValidationError,
   removeValidationError,
+  validateUserPass,
 } from '../../functions/_custom-funcs.mjs';
 
 // Form vars
@@ -26,10 +27,6 @@ const matchPassError = 'Passwords do not match';
 const equalPassError = 'Passwords cannot be equal';
 
 // Validation functions
-function validateUserPass(password) {
-  const regExpPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{9,}$/;
-  return regExpPass.test(String(password));
-}
 
 function areAllPassFieldsValid(passFields) {
   return [...passFields].every((field) => validateUserPass(field.value));

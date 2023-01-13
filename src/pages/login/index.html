@@ -52,7 +52,7 @@
                   </div>
 
                   <form
-                    action="./assets/php/database/connect.php"
+                    action="./assets/php/login/login.php"
                     method="post"
                     novalidate
                     class="area-login__form form"
@@ -86,6 +86,7 @@
                             autocomplete="off"
                             placeholder=" "
                             class="password__field _user-info__field"
+                            name="user-pass"
                           />
                           <div class="area-login__form_error"></div>
                           <label
@@ -98,7 +99,7 @@
                       </fieldset>
 
                       <fieldset class="form__group_secondary">
-                        <button type="submit" class="form__email-continue">
+                        <button type="button" class="form__email-continue">
                           Continue with Email
                         </button>
                       </fieldset>

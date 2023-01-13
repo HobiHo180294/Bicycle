@@ -4,7 +4,7 @@ require_once '../database/connect.php';
 require_once '../functions/functions.php';
 
 if (!empty($_POST['defaultPassValue'])) {
-  $user_input_default_pass = defendValueFromViralInput('defaultPassValue');
+  $user_input_default_pass = defendValueFromViralInput($_POST['defaultPassValue']);
 
   $encrypted_input_default_pass = encryptPassSHA512($user_input_default_pass);
 
@@ -14,4 +14,6 @@ if (!empty($_POST['defaultPassValue'])) {
   if (mysqli_num_rows($check_default_pass) > 0)
     echo json_encode(['status' => 'success']);
   else echo json_encode(['status' => 'error']);
+
+  mysqli_close($connect);
 }

@@ -41,6 +41,22 @@ function removeErrorEmptyField(field, button) {
   }
 }
 
+function validateEmail(email) {
+  const regExpEmail = /^[A-Z0-9._%+-]{2,}@[A-Z0-9-]+.+.[A-Z]{2,4}$/i;
+  return regExpEmail.test(String(email));
+}
+
+function validateUserPass(password) {
+  const regExpPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{9,}$/;
+  return regExpPass.test(String(password));
+}
+
+function validateUserNameOrSurname(input) {
+  const regExp =
+    /^[a-zA-Z\u00E4\u00F6\u00FC\u00C4\u00D6\u00DC\u00df -]{2,30}$/i;
+  return regExp.test(String(input));
+}
+
 export {
   removeDOMElement,
   removeHash,
@@ -50,4 +66,7 @@ export {
   showValidationError,
   removeValidationError,
   removeErrorEmptyField,
+  validateUserPass,
+  validateEmail,
+  validateUserNameOrSurname,
 };

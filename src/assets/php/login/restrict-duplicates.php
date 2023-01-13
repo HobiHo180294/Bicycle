@@ -20,4 +20,6 @@ if (!empty($_POST['userEmailValue'])) {
   } else {
     echo json_encode(['status' => 'error']);
   }
+
+  mysqli_close($connect);
 }

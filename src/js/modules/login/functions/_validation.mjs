@@ -6,15 +6,21 @@ import {
   submitForm,
   showValidationError,
   removeValidationError,
+  validateEmail,
+  validateUserPass,
+  validateUserNameOrSurname,
+  removeErrorEmptyField,
 } from '../../functions/_custom-funcs.mjs';
 
 // Form variables
 const loginForm = document.querySelector('.area-login__form');
-const requiredLoginFields = loginForm.querySelectorAll('[required]');
 const continueWithEmailButton = document.querySelector('.form__email-continue');
 
 // User data variables
 const userEmailField = document.querySelector('.email__field');
+const userPassField = document.querySelector('.password__field');
+
+const userFieldsCollection = document.querySelectorAll('._user-info__field');
 const errorValidateFields = document.querySelectorAll(
   '.area-login__form_error'
 );
@@ -23,13 +29,12 @@ const errorValidateFields = document.querySelectorAll(
 const userIsExistedError = 'Sorry, this user is already registered!';
 const emptyRequiredFieldError = 'Please, fill in the required field!';
 const invalidEmailError = 'Please enter a valid e-mail';
+const invalidPassError =
+  'Password should contain at least one capital, lowercase letter and digit';
+const invalidPassLengthError = 'Password should contain at least 9 characters';
+const invalidNameOrSurnameError = 'Please provide real data!';
 
 // Validation functions
-function validateEmail(email) {
-  const regExpEmail =
-    /^[A-Z0-9\u00E4\u00F6\u00FC\u00C4\u00D6\u00DC\u00df._%+-]{2,}@[A-Z0-9-]+.+.[A-Z]{2,4}$/i;
-  return regExpEmail.test(String(email));
-}
 
 function restrictDuplicateUsername(userEmailValue) {
   $.ajax({
@@ -55,16 +60,40 @@ function restrictDuplicateUsername(userEmailValue) {
   });
 }
 
+function sendScreenResolutionToServer(screenWidth, screenHeight, userEmailVal) {
+  $.ajax({
+    url: './assets/php/login/screen-resolution.php',
+    method: 'post',
+    async: false,
+    data: { screenWidth, screenHeight, userEmailVal },
+    success: (response) => {
+      if (response) console.log(response);
+    },
+  });
+}
+
 // Form Validation Function (main function)
 function validateEnterForm() {
   loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const userEmailVal = userEmailField.value;
+    const requiredLoginFields = loginForm.querySelectorAll('[required]');
+    const userInfoFieldsCollection =
+      document.querySelectorAll('._user-info__field');
 
+    const userEmailVal = userEmailField.value;
+    const userPassVal = userPassField.value;
+
+    // ! COMMON
     const emptyLoginFields = Array.from(requiredLoginFields).filter(
       (input) => input.value === ''
     );
+
+    userInfoFieldsCollection.forEach((field) => {
+      field.addEventListener('focus', () =>
+        removeErrorEmptyField(field, continueWithEmailButton)
+      );
+    });
 
     requiredLoginFields.forEach((field) => {
       if (field.value === '')
@@ -72,12 +101,29 @@ function validateEnterForm() {
       else removeValidationError(field);
     });
 
-    if (!userEmailField.classList.contains('_error-validate'))
-      if (!validateEmail(userEmailVal))
-        showValidationError(userEmailField, invalidEmailError);
-      else removeValidationError(userEmailField);
+    // ! COMMON
 
     if (window.location.hash === '#registration') {
+      const realNameField = document.getElementById('realName');
+      const userSurnameField = document.getElementById('userSurname');
+
+      const userFullnameParts = [realNameField, userSurnameField];
+
+      if (!userEmailField.classList.contains('_error-validate'))
+        if (!validateEmail(userEmailVal))
+          showValidationError(userEmailField, invalidEmailError);
+        else removeValidationError(userEmailField);
+
+      userFullnameParts.forEach((field) => {
+        const fieldValue = field.value;
+
+        if (!field.classList.contains('_error-validate')) {
+          if (!validateUserNameOrSurname(fieldValue))
+            showValidationError(field, invalidNameOrSurnameError);
+          else removeValidationError(field);
+        }
+      });
+
       if (validateEmail(userEmailVal) && userEmailVal !== '') {
         errorValidateFields.forEach((element) => element.remove());
         removeHash();
@@ -86,8 +132,48 @@ function validateEnterForm() {
       }
     }
 
-    if (window.location.hash !== '#registration') {
-      if (emptyLoginFields.length === 0 && validateEmail(userEmailVal)) {
+    if (window.location.hash === '') {
+      userFieldsCollection.forEach((field) => {
+        if (field.type === 'email') {
+          const emailFieldVal = field.value;
+
+          if (!field.classList.contains('_error-validate'))
+            if (!validateEmail(emailFieldVal))
+              showValidationError(field, invalidEmailError);
+            else removeValidationError(field);
+        }
+
+        if (field.type === 'password') {
+          const passFieldVal = field.value;
+
+          if (passFieldVal === '')
+            showValidationError(field, emptyRequiredFieldError);
+
+          if (passFieldVal !== '' && field.value.length < 9)
+            showValidationError(field, invalidPassLengthError);
+
+          if (
+            passFieldVal !== '' &&
+            passFieldVal.length >= 9 &&
+            !validateUserPass(passFieldVal)
+          )
+            showValidationError(field, invalidPassError);
+
+          if (
+            passFieldVal !== '' &&
+            passFieldVal.length >= 9 &&
+            validateUserPass(passFieldVal) &&
+            field.classList.contains('_error-validate')
+          )
+            removeValidationError(field);
+        }
+      });
+
+      if (
+        emptyLoginFields.length === 0 &&
+        validateEmail(userEmailVal) &&
+        validateUserPass(userPassVal)
+      ) {
         errorValidateFields.forEach((element) => element.remove());
         alert('Please wait...'); // eslint-disable-line no-alert
         submitForm(loginForm);
@@ -102,31 +188,49 @@ export {
   restrictDuplicateUsername,
   removeValidationError,
   showValidationError,
+  sendScreenResolutionToServer,
 };
 
-/*  
-    !!! REFACTORRED CODE
+// if (window.location.hash !== '#registration') {
+//   userFieldsCollection.forEach((field) => {
+//     if (field.type === 'email') {
+//       const emailFieldVal = field.value;
 
-    requiredLoginFields.forEach((field) => {
-      if (field.value === '') {
-        showValidationError(field, emptyRequiredFieldError);
-        field.classList.add('_error-validate');
-        field.nextElementSibling.textContent =
-          'Please, fill in the required field!';
-      } else {
-        field.classList.remove('_error-validate');
-        field.nextElementSibling.textContent = '';
-      }
-    });
+//       if (!field.classList.contains('_error-validate'))
+//         if (!validateEmail(emailFieldVal))
+//           showValidationError(field, invalidEmailError);
+//         else removeValidationError(field);
+//     }
 
+//     if (field.type === 'password') {
+//       const passFieldVal = field.value;
 
-        if (!userEmailField.classList.contains('_error-validate'))
-      if (!validateEmail(userEmailVal)) {
-        userEmailField.classList.add('_error-validate');
-        userEmailField.nextElementSibling.textContent =
-          'Please enter a valid e-mail';
-      } else {
-        userEmailField.classList.remove('_error-validate');
-        userEmailField.nextElementSibling.textContent = '';
-      }
-*/
+//       if (passFieldVal === '')
+//         showValidationError(field, emptyRequiredFieldError);
+
+//       if (passFieldVal !== '' && field.value.length < 9)
+//         showValidationError(field, invalidPassLengthError);
+
+//       if (
+//         passFieldVal !== '' &&
+//         passFieldVal.length >= 9 &&
+//         !validateUserPass(passFieldVal)
+//       )
+//         showValidationError(field, invalidPassError);
+
+//       if (
+//         passFieldVal !== '' &&
+//         passFieldVal.length >= 9 &&
+//         validateUserPass(passFieldVal) &&
+//         field.classList.contains('_error-validate')
+//       )
+//         removeValidationError(field);
+//     }
+//   });
+
+//   if (emptyLoginFields.length === 0 && validateEmail(userEmailVal)) {
+//     errorValidateFields.forEach((element) => element.remove());
+//     alert('Please wait...'); // eslint-disable-line no-alert
+//     submitForm(loginForm);
+//   }
+// }

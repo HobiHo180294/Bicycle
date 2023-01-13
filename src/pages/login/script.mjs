@@ -4,6 +4,7 @@ import $ from 'jquery';
 import {
   validateEnterForm,
   restrictDuplicateUsername,
+  sendScreenResolutionToServer,
 } from '../../js/modules/login/functions/_validation.mjs';
 import {
   onPageToggle,
@@ -16,12 +17,14 @@ import {
 } from '../../js/modules/functions/_custom-funcs.mjs';
 
 document.addEventListener('DOMContentLoaded', () => {
+  // ? VARIABLES
   const userEmailFieldID = document.getElementById('user-email');
 
   const continueWithEmailButton = document.querySelector(
     '.form__email-continue'
   );
 
+  //! COMMON
   // Toggling to registration page
   buttonToRegistrationPage.addEventListener('click', () => {
     if (!buttonToRegistrationPage.classList.contains('_clicked')) reloadPage();
@@ -30,46 +33,36 @@ document.addEventListener('DOMContentLoaded', () => {
       window.location.reload();
     }
   });
+  //! COMMON
 
-  if (window.location.hash === '#registration') onPageToggle();
+  // ! REGISTRATION PAGE
+  if (window.location.hash === '#registration') {
+    onPageToggle();
 
-  // Prevent username duplications with ajax function and jquery
-  // eslint-disable-next-line func-names
-  $(userEmailFieldID).on('keyup', function () {
-    const userEmailValue = $(this).val();
+    // Prevent username duplications with ajax function and jquery
+    // eslint-disable-next-line func-names
+    $(userEmailFieldID).on('keyup', function () {
+      const userEmailValue = $(this).val();
 
-    if (userEmailValue) restrictDuplicateUsername(userEmailValue);
+      if (userEmailValue) restrictDuplicateUsername(userEmailValue);
 
-    removeErrorEmptyField(userEmailFieldID, continueWithEmailButton);
-  });
+      removeErrorEmptyField(userEmailFieldID, continueWithEmailButton);
+    });
+  }
+  // ! REGISTRATION PAGE
 
-  // UX
-  userEmailFieldID.addEventListener('focus', () =>
-    removeErrorEmptyField(userEmailFieldID, continueWithEmailButton)
-  );
+  //! COMMON
+  // Delete validation errors when focusing
 
   // Send form to the server
-  continueWithEmailButton.addEventListener('click', () => {
-    if (window.location.hash === '#registration') validateEnterForm();
+  continueWithEmailButton.addEventListener('click', function () {
+    const userEmailVal = userEmailFieldID.value;
+    const screenWidth = window.screen.width;
+    const screenHeight = window.screen.height;
+    sendScreenResolutionToServer(screenWidth, screenHeight, userEmailVal);
+    this.setAttribute('type', 'submit');
+    validateEnterForm();
   });
+
+  //! COMMON
 });
-
-/*
- !!! REFACTORRED CODE
-  Validation Login Page
-  validateEnterForm();
-
-
-  const errorValidateEmailField = document.querySelector('.error-email');
-
-
-  isUserNameExist(idCustomerEmail);
-  if (isUserNameExist(idCustomerEmail)) {
-    userEmail.classList.add('_error-validate');
-    userEmail.nextElementSibling.textContent =
-      'This user is already existed!';
-  } else {
-    userEmail.classList.remove('_error-validate');
-    userEmail.nextElementSibling.textContent = '';
-  }
-*/

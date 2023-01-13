@@ -13,9 +13,9 @@ if (
   $successful_registration_message = 'Your registration is successfully completed! Now you can log into your account';
   $redirect_location = 'http://yehorka.com/web-shop/bicycle/dist/login.html';
 
-  $user_default_pass = defendValueFromViralInput('user-default-pass');
-  $user_new_pass = defendValueFromViralInput('user-new-pass');
-  $user_confirm_pass = defendValueFromViralInput('user-confirm-pass');
+  $user_default_pass = defendValueFromViralInput($_POST['user-default-pass']);
+  $user_new_pass = defendValueFromViralInput($_POST['user-new-pass']);
+  $user_confirm_pass = defendValueFromViralInput($_POST['user-confirm-pass']);
 
   $encrypted_default_pass = encryptPassSHA512($user_default_pass);
   $encrypted_new_pass = encryptPassSHA512($user_new_pass);
@@ -24,22 +24,7 @@ if (
                           SET `userPasswordHash` = '$encrypted_new_pass', `isConfirmed` =  '1' 
                           WHERE `userPasswordHash` = '$encrypted_default_pass'");
 
-  if ($update_default) {
-    echo "<!DOCTYPE html>
-    <html lang='en'>
-    <head>
-      <meta charset='UTF-8'>
-      <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-      <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-      <title>Successful Registration</title>
-    </head>
-    <body>
-       <script>
-        alert('$successful_registration_message');
-        window.location.href = '$redirect_location';
-        window.location.replace('$redirect_location');
-       </script>
-    </body>
-    </html>";
-  }
+  mysqli_close($connect);
+
+  if ($update_default) displayAlertAndRedirectTo($successful_registration_message, $redirect_location);
 }
