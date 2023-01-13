@@ -4,40 +4,12 @@
 // Nullstyle
 @import '../../scss/modules/catalog/reset';
 
-// Palette
-@import '_palette.scss';
-
 // Adaptive font variables
 
 // Mixins
-@mixin textParameters(
-  $color: #000,
-  $size: 14px,
-  $style: normal,
-  $weight: 400,
-  $lh: 1,
-  $ls: normal,
-  $transform: none,
-  $opacity: 1,
-  $shadow: none,
-  $decoration: none
-) {
-  color: $color;
-  font-size: $size;
-  font-style: $style;
-  font-weight: $weight;
-  line-height: $lh;
-  letter-spacing: $ls;
-  text-transform: $transform;
-  opacity: $opacity;
-  text-shadow: $shadow;
-  text-decoration: $decoration;
-  font-family: 'Lato', sans-serif;
-}
 
 /* Presets and common styles*/
 body {
-  @include textParameters();
   font-family: 'Lato', sans-serif;
 }
 
@@ -51,23 +23,6 @@ body {
   max-width: 1222px;
   margin: 0 auto;
 }
-
-// ._ibg {
-//   background-position: center;
-//   background-size: cover;
-//   background-repeat: no-repeat;
-//   position: relative;
-// }
-
-// ._ibg img {
-//   width: 0;
-//   height: 0;
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   opacity: 0;
-//   visibility: hidden;
-// }
 
 ._flyImage {
   opacity: 1;
@@ -86,10 +41,7 @@ body {
   z-index: 1001;
   background-color: #eceef4;
 }
-.header__container {
-  // max-width: 1000px;
-  // margin: 0 auto;
-}
+
 .header__burger {
   display: none;
 }
@@ -205,18 +157,22 @@ body {
 
   &__title {
     font-weight: 600;
-    margin: 0 0 10px/16px * 1em 0;
+    margin: 0 0 calc(10px / 16px * 1em) 0;
     color: rgb(236, 56, 56);
     font-family: 'Lato', sans-serif;
+    text-transform: uppercase;
+    // font-size: 16px !important;
   }
 
   &__quantity {
-    margin: 0 0 5px/14px * 1em 0;
+    margin: 0 0 calc(5px / 14px * 1em) 0;
     font-family: 'Lato', sans-serif;
+    font-size: 15px !important;
   }
 
   &__price {
     margin: 3px 0;
+    font-size: 15px;
   }
 
   &__remove {
@@ -226,10 +182,12 @@ body {
     margin-bottom: 5px;
     font-weight: 600;
     font-family: 'Lato', sans-serif;
+    font-size: 15px;
 
     & span {
       color: rgb(236, 56, 56);
       padding-left: 4px;
+      // margin-bottom: 5px;
     }
   }
 
@@ -248,6 +206,7 @@ body {
     color: #fff;
     font-weight: 700;
     transition: 0.3s;
+    margin-top: 10px;
     &:hover {
       color: #64c29e;
       background: rgb(245, 244, 244);
@@ -263,17 +222,13 @@ body {
   }
 }
 
-// .header__shopping-cart img {
-//   width: 40px;
-// }
-
 /* Header styles end */
 
 /* Page styles start */
 .page {
 }
 .welcome {
-  background: url(../img/welcome/bg_welcome.jpg) no-repeat;
+  background: url(../../assets/images/catalog/welcome/bg_welcome.jpg) no-repeat;
   background-size: 100% 600px;
   &__container {
   }
@@ -341,7 +296,6 @@ body {
     position: relative;
     width: 550px;
     height: 350px;
-    // padding: 0 0 65% 0;
     margin: 0 0 20px 0;
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
@@ -840,7 +794,7 @@ body {
       left: 15px;
       width: 100%;
       height: 100%;
-      background: url('/img/catalog/plus.png') no-repeat;
+      background: url('../../assets/images/catalog/plus.png') no-repeat;
       background-size: 18px;
     }
   }
@@ -873,7 +827,7 @@ body {
       left: 18px;
       width: 100%;
       height: 100%;
-      background: url('/img/catalog/x.png') no-repeat;
+      background: url('../../assets/images/catalog/x.png') no-repeat;
       background-size: 16px;
     }
   }

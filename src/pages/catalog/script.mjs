@@ -1,9 +1,20 @@
-import './catalog.html';
+//  http://anastasiia_but.com/web-shop/bicycle/dist/catalog.html
+import $ from 'jquery';
+
+import './index.html';
+
+import json from '../../assets/json/json.json';
+
+// eslint-disable-next-line import/extensions, no-unused-vars
+
 import './style.scss';
+
+let orderIdCount = 1;
 
 window.onload = function () {
   // eslint-disable-next-line no-use-before-define
   document.addEventListener('click', documentActions);
+  console.log('hello stupid web');
 
   // Actions (click)
   function documentActions(e) {
@@ -32,16 +43,12 @@ window.onload = function () {
       !targetElement.classList.contains('cart-list__remove')
     ) {
       document.querySelector('.cart-header__body').classList.remove('_active');
-    }
-
-    // Remove from cart
+    } // Remove from cart
     if (targetElement.classList.contains('products__btn-remove')) {
       // eslint-disable-next-line no-shadow
       const targetElement = document.querySelector('.cart-list__remove');
       const productId =
         targetElement.closest('.cart-list__item').dataset.cartPid;
-      console.log('ohh, no');
-
       // eslint-disable-next-line no-use-before-define
       updateCart(targetElement, productId, false);
       e.preventDefault();
@@ -53,6 +60,60 @@ window.onload = function () {
 
       // eslint-disable-next-line no-use-before-define
       updateCart(targetElement, productId, false);
+      e.preventDefault();
+    }
+
+    // Create an object
+    if (targetElement.classList.contains('cart-list__btn-active')) {
+      // eslint-disable-next-line no-new-object
+
+      const orderObj = {};
+      orderObj.id = orderIdCount++;
+
+      // eslint-disable-next-line no-new-object
+
+      const products = document.querySelectorAll('.cart-list__item');
+
+      products.forEach((element) => {
+        const productObjId = element.dataset.cartPid;
+
+        const productObjImage = element.querySelector(
+          '.products__image-img'
+        ).src;
+
+        const productObjTitle =
+          element.querySelector('.cart-list__title').textContent;
+
+        const productObjPrice =
+          element.querySelector('.cart-list__price').innerHTML;
+
+        const productObjQuantity = element.querySelector(
+          '.cart-list__quantity span'
+        ).innerHTML;
+
+        const cartObj = new Object();
+
+        orderObj.order = cartObj;
+
+        cartObj.id = productObjId;
+        cartObj.image = productObjImage;
+        cartObj.title = productObjTitle.trim();
+        cartObj.price = productObjPrice;
+        cartObj.quantity = productObjQuantity;
+        cartObj.isPaid = 'not';
+
+        const order = JSON.stringify(orderObj);
+
+        $.ajax({
+          url: './assets/php/catalog/cart.php',
+          method: 'post',
+          // dataType: 'json' /* Тип данных в ответе (xml, json, script, html). */,
+          data: { order },
+          success: (response) => {
+            if (response) console.log(response);
+          },
+        });
+      });
       e.preventDefault();
     }
   }
@@ -145,7 +206,7 @@ window.onload = function () {
           product.querySelector('.products__price').innerHTML;
 
         const cartProductContent = `
-          <a href="#" name="image" class="cart-list__image ">${cartProductImage}</a>
+          <a href="#" class="cart-list__image">${cartProductImage}</a>
           <div class="cart-list__body">
             <a href="#" class="cart-list__title" name="title">${cartProductTitle}</a>
             <div class="cart-list__quantity">
@@ -196,3 +257,13 @@ window.onload = function () {
     }
   }
 };
+
+// const cartBody = document.querySelector('.cart-header__body _active');
+// console.log(cartBody);
+// if (cartBody) {
+//   for (let i = 1; i <= 10; i++) {
+//     const cartProductId =
+//       document.querySelector('.cart-list__item').dataset.cartPid;
+//     console.log(cartProductId);
+//   }
+// }
