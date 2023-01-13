@@ -53,7 +53,7 @@ if (
 
     mysqli_query($connect, "UPDATE `users` 
                           SET `isLogged` = '1', `loginDateTime` =  '$login_date_time', 
-                          `userOS` = '$user_os'
+                          `OS` = '$user_os', `status` = 'online'
                           WHERE `id` = '$session_user_id'");
 
     mysqli_close($connect);
