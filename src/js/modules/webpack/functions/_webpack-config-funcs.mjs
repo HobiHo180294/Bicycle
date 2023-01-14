@@ -8,7 +8,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import { devMode, prodMode } from '../variables/_webpack-config-variables.mjs';
 import moduleRules from '../objects/moduleRules.mjs';
 
-const __dirname = 'D:/XAMPP/htdocs/web-shop/Bicycle';
+const __dirname = 'E:/Xampp/htdocs/web-shop/Bicycle';
 
 function genFilename(ext) {
   return devMode ? `[name].${ext}` : `[name].[contenthash].${ext}`;
@@ -60,6 +60,14 @@ function useWebpackPlugins() {
         collapseWhitespace: prodMode,
       },
       chunks: ['reassign'],
+    }),
+    new HtmlWebpackPlugin({
+      template: './pages/teststatus/index.html',
+      filename: 'teststatus.html',
+      minify: {
+        collapseWhitespace: prodMode,
+      },
+      chunks: ['teststatus'],
     }),
     new MiniCssExtractPlugin({
       filename: genFilename('css'),
