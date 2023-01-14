@@ -58,7 +58,7 @@
     <div class="wrapper">
       <!-- Header -->
       <header class="header">
-        <div class="header__container">
+        <div class="header__container _container">
           <div class="header__row">
             <div class="header__burger">
               <span></span>
@@ -67,7 +67,7 @@
             <div class="header__logo">
               <a href="./index.html" class="header__logo-link logo-link">
                 <img
-                  src="../../assets/images/main/logos/company-logo.svg"
+                  src="../../assets/images/catalog/header/company-logo.svg"
                   alt="Company-logo"
                   class="header__logo-pic logo-pic"
                 />
@@ -77,22 +77,9 @@
             <nav class="header__nav">
               <ul class="header__list">
                 <li class="header__item">
-                  <a
-                    href="#about"
-                    class="header__link header__link_after js-scroll"
-                  >
-                    about us
-                  </a>
-                </li>
-
-                <li class="header__item">
-                  <a href="#work" class="header__link js-scroll">work</a>
-                </li>
-
-                <li class="header__item">
                   <a href="index.html" class="header__logo-link logo-link">
                     <img
-                      src="../../assets/images/main/logos/company-logo.svg"
+                      src="../../assets/images/catalog/header/company-logo.svg"
                       alt="Company-logo"
                       class="header__logo-pic logo-pic"
                     />
@@ -100,16 +87,53 @@
                 </li>
 
                 <li class="header__item">
+                  <a href="#about" class="header__link header__link_after">
+                    about us
+                  </a>
+                </li>
+
+                <li class="header__item">
                   <a
-                    href="#shop"
-                    class="header__link header__link_after js-scroll"
+                    href="./catalog.html"
+                    class="header__link header__link_after"
                   >
                     shop
                   </a>
                 </li>
 
                 <li class="header__item">
-                  <a href="#contact" class="header__link js-scroll">contact</a>
+                  <a href="#contact" class="header__link header__link_after">
+                    profile
+                  </a>
+                </li>
+
+                <li class="header__item">
+                  <a
+                    href="./login.html  "
+                    class="header__link header__link_after"
+                  >
+                    log in
+                  </a>
+                </li>
+
+                <li class="header__item header__shopping-cart cart-header">
+                  <a href="#" class="header__link shopping-cart">
+                    <img
+                      class="shopping-cart__icon"
+                      src="../../assets/images/catalog/header/shoping-cart.png"
+                      alt="Shopping-cart"
+                    />
+                  </a>
+                  <form
+                    action="./assets/php/catalog/cart.php"
+                    method="post"
+                    class="cart-header__body"
+                  >
+                    <ul class="cart-header__list cart-list"></ul>
+                    <button class="cart-list__btn" type="submit">
+                      Make an order
+                    </button>
+                  </form>
                 </li>
               </ul>
             </nav>
@@ -398,7 +422,9 @@
             </div>
 
             <div class="shop__footer">
-              <a href="./login.html" class="shop__button">DISCOVER THE SHOP</a>
+              <a href="./catalog.html" class="shop__button">
+                DISCOVER THE SHOP
+              </a>
             </div>
           </div>
         </div>

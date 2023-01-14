@@ -14,7 +14,6 @@ let orderIdCount = 1;
 window.onload = function () {
   // eslint-disable-next-line no-use-before-define
   document.addEventListener('click', documentActions);
-  console.log('hello stupid web');
 
   // Actions (click)
   function documentActions(e) {
@@ -65,11 +64,21 @@ window.onload = function () {
 
     // Create an object
     if (targetElement.classList.contains('cart-list__btn-active')) {
+      targetElement.setAttribute('type', 'button');
+
       // eslint-disable-next-line no-new-object
+      let username = getUserName('New user name');
+      console.log(username);
+
+      targetElement.setAttribute('type', 'submit');
 
       const orderObj = {};
       orderObj.id = orderIdCount++;
+      orderObj.username = username;
+      orderObj.isPaid = 'not';
 
+      let orderObjId = orderObj.id;
+      const orderObjIsPaid = orderObj.isPaid;
       // eslint-disable-next-line no-new-object
 
       const products = document.querySelectorAll('.cart-list__item');
@@ -81,15 +90,17 @@ window.onload = function () {
           '.products__image-img'
         ).src;
 
-        const productObjTitle =
-          element.querySelector('.cart-list__title').textContent;
+        const productObjTitle = element
+          .querySelector('.cart-list__title')
+          .textContent.trim();
 
-        const productObjPrice =
-          element.querySelector('.cart-list__price').innerHTML;
+        const productObjPrice = element
+          .querySelector('.cart-list__price')
+          .innerHTML.trim();
 
-        const productObjQuantity = element.querySelector(
-          '.cart-list__quantity span'
-        ).innerHTML;
+        const productObjQuantity = element
+          .querySelector('.cart-list__quantity span')
+          .innerHTML.trim();
 
         const cartObj = new Object();
 
@@ -98,17 +109,31 @@ window.onload = function () {
         cartObj.id = productObjId;
         cartObj.image = productObjImage;
         cartObj.title = productObjTitle.trim();
-        cartObj.price = productObjPrice;
+        cartObj.price = productObjPrice.slice(0, -1);
         cartObj.quantity = productObjQuantity;
-        cartObj.isPaid = 'not';
 
-        const order = JSON.stringify(orderObj);
+        const order = orderObj;
+
+        const orderId = orderObjId;
+
+        const itemId = productObjId;
+
+        const itemPrice = cartObj.price;
 
         $.ajax({
           url: './assets/php/catalog/cart.php',
           method: 'post',
-          // dataType: 'json' /* Тип данных в ответе (xml, json, script, html). */,
-          data: { order },
+          data: {
+            order,
+            itemId,
+            orderId,
+            username,
+            productObjImage,
+            productObjTitle,
+            itemPrice,
+            productObjQuantity,
+            orderObjIsPaid,
+          },
           success: (response) => {
             if (response) console.log(response);
           },
@@ -258,12 +283,22 @@ window.onload = function () {
   }
 };
 
-// const cartBody = document.querySelector('.cart-header__body _active');
-// console.log(cartBody);
-// if (cartBody) {
-//   for (let i = 1; i <= 10; i++) {
-//     const cartProductId =
-//       document.querySelector('.cart-list__item').dataset.cartPid;
-//     console.log(cartProductId);
-//   }
-// }
+function getUserName(userName) {
+  let username;
+  $.ajax({
+    url: './assets/php/catalog/get-user.php',
+    method: 'post',
+    async: false,
+    data: { userName },
+    success: (response) => {
+      if (response) {
+        const responseFromServer = JSON.parse(response);
+
+        if (responseFromServer.status === 'success') {
+          username = responseFromServer.username;
+        }
+      }
+    },
+  });
+  return username;
+}

@@ -44,6 +44,7 @@ if (
 
     $_SESSION['logged-user'] = [
       'id' => $logged_user['id'],
+      'username' => $logged_user['username'],
       'realName' => $logged_user['realName'],
       'surname' => $logged_user['userSurname'],
       'loginDateTime' => $login_date_time
