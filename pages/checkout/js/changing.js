@@ -1,0 +1,1 @@
+const selectElement=document.querySelector(".form-select");selectElement.addEventListener("change",(e=>{document.querySelector(".result").textContent=`You like ${e.target.value}`}));
