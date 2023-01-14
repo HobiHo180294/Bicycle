@@ -30,7 +30,7 @@ if (
 
   // ! LOCATIONS 
   $login_page_location = 'http://yehorka.com/web-shop/bicycle/dist/login.html';
-  $catalog_page_location = 'http://yehorka.com/web-shop/bicycle/dist/index.html';
+  $catalog_page_location = 'http://yehorka.com/web-shop/bicycle/dist/catalog.html';
 
   if (mysqli_num_rows($check_user) > 0) {
 
@@ -39,8 +39,6 @@ if (
     $login_date_time = date("Y-m-d H:i:s");
 
     $user_os = getOS();
-
-    echo "$user_os";
 
     $_SESSION['logged-user'] = [
       'id' => $logged_user['id'],
@@ -57,10 +55,8 @@ if (
                           `OS` = '$user_os', `status` = 'online'
                           WHERE `id` = '$session_user_id'");
 
-    print_r($_SESSION['logged-user']);
-
     mysqli_close($connect);
-    // displayAlertAndRedirectTo($check_user_success, $catalog_page_location);
+    displayAlertAndRedirectTo($check_user_success, $catalog_page_location);
   }
 
   if (mysqli_num_rows($check_user) == 0) {

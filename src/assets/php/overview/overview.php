@@ -22,7 +22,8 @@ session_start()
 
       $current_username = $_SESSION['logged-user']['username'];
 
-      $orderID_SQL = "SELECT orderId FROM ordersMain WHERE username='$current_username' GROUP BY orderId";
+      $orderID_SQL = "SELECT `orderId` FROM `ordersMain` WHERE `username` = '$current_username'
+                      AND `isPaid` = '1' GROUP BY `orderId`";
       $orderResult = mysqli_query($connect, $orderID_SQL);
 
       while ($orderID = mysqli_fetch_row($orderResult)) {
@@ -38,7 +39,7 @@ session_start()
         while ($itemDetails = mysqli_fetch_assoc($itemResult)) {
           echo
           '<div class="item">
-              <div class="item__img"><img src="' . $itemDetails['itemImage'] . '" alt="pic" /></div>
+              <div class="item__img" "><img width="150" src="' . $itemDetails['itemImage'] . '" alt="pic" /></div>
               <div class="item__title">' . $itemDetails['itemTitle'] . '</div>
               <div><span>Price:</span> €' . $itemDetails['itemPrice'] . '</div>
               <div><span>Amount:</span> ' . $itemDetails['itemQuantity'] . '</div>

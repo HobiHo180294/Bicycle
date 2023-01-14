@@ -9,12 +9,127 @@ import json from '../../assets/json/json.json';
 
 import './style.scss';
 
+// search
+let lastResFind = ''; // последний удачный результат
+let copy_page = ''; // копия страницы в ихсодном виде
+
+const textFindBtn = document.querySelector('.text-find');
+function TrimStr(s) {
+  s = s.replace(/^\s+/g, '');
+  return s.replace(/\s+$/g, '');
+}
+textFindBtn.addEventListener('click', () => FindOnPage('text-to-find'));
+
+function FindOnPage(inputId) {
+  console.log('work');
+  // ищет текст на странице, в параметр передается ID поля для ввода
+  let obj = window.document.getElementById(inputId);
+  let textToFind;
+
+  if (obj) {
+    textToFind = TrimStr(obj.value); // обрезаем пробелы
+  } else {
+    alert('The entered phrase was not found');
+    return;
+  }
+  if (textToFind == '') {
+    alert('You did not enter anything');
+    return;
+  }
+
+  if (document.body.innerHTML.indexOf(textToFind) == '-1')
+    alert('Nothing found, please check your input!');
+
+  if (copy_page.length > 0) document.body.innerHTML = copy_page;
+  else copy_page = document.body.innerHTML;
+
+  document.body.innerHTML = document.body.innerHTML.replace(
+    eval('/name=' + lastResFind + '/gi'),
+    ' '
+  ); // стираем предыдущие якори для скрола
+  document.body.innerHTML = document.body.innerHTML.replace(
+    eval('/' + textToFind + '/gi'),
+    '<a name=' +
+      textToFind +
+      " style='background: #64c29e'>" +
+      textToFind +
+      '</a>'
+  ); // Заменяем найденный текст ссылками с якорем;
+  lastResFind = textToFind; // сохраняем фразу для поиска, чтобы в дальнейшем по ней стереть все ссылки
+  window.location = '#' + textToFind; // перемещаем скрол к последнему найденному совпадению
+
+  return false;
+}
+
+function getUserSurname(welcomeUserSurname) {
+  let userSurname;
+  $.ajax({
+    url: './assets/php/catalog/welcome.php',
+    method: 'post',
+    async: false,
+    data: {
+      welcomeUserSurname,
+    },
+    success: (response) => {
+      try {
+        if (response) {
+          const responseFromServer = JSON.parse(response);
+
+          if (responseFromServer.status === 'success') {
+            userSurname = responseFromServer.userSurname;
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  });
+
+  return userSurname;
+}
+
+function updateOnlineUsers(amountOfOnline, nowOnlineField) {
+  $.ajax({
+    url: './assets/php/teststatus/online-amount.php',
+    method: 'post',
+    data: { amountOfOnline },
+    success: (response) => {
+      try {
+        if (response) {
+          const responseFromServer = JSON.parse(response);
+
+          if (responseFromServer.status === 'success') {
+            nowOnlineField.textContent = responseFromServer.online;
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  });
+}
+
 let orderIdCount = 1;
 
 window.onload = function () {
+  const welcomeUser = document.querySelector('.welcome__user');
+  const nowOnlineField = document.querySelector('.welcome__amount-online span');
+
+  const userSurname = getUserSurname('userSurname');
+
+  if (userSurname) {
+    welcomeUser.textContent = `Hello Mr/Mrs ${userSurname}`;
+
+    setInterval(() => {
+      const amountOfOnline = Number(nowOnlineField.textContent);
+      updateOnlineUsers(amountOfOnline, nowOnlineField);
+    }, 3000);
+  }
+
   // eslint-disable-next-line no-use-before-define
   document.addEventListener('click', documentActions);
-  console.log('hello stupid web');
+
+  getUserName('value');
 
   // Actions (click)
   function documentActions(e) {
@@ -65,11 +180,22 @@ window.onload = function () {
 
     // Create an object
     if (targetElement.classList.contains('cart-list__btn-active')) {
+      console.log(targetElement);
+      // targetElement.setAttribute('type', 'button');
+
       // eslint-disable-next-line no-new-object
+      let username = getUserName('New user name');
+      console.log(username);
+
+      targetElement.setAttribute('type', 'submit');
 
       const orderObj = {};
       orderObj.id = orderIdCount++;
+      orderObj.username = username;
+      orderObj.isPaid = 'not';
 
+      let orderObjId = orderObj.id;
+      const orderObjIsPaid = orderObj.isPaid;
       // eslint-disable-next-line no-new-object
 
       const products = document.querySelectorAll('.cart-list__item');
@@ -81,15 +207,17 @@ window.onload = function () {
           '.products__image-img'
         ).src;
 
-        const productObjTitle =
-          element.querySelector('.cart-list__title').textContent;
+        const productObjTitle = element
+          .querySelector('.cart-list__title')
+          .textContent.trim();
 
-        const productObjPrice =
-          element.querySelector('.cart-list__price').innerHTML;
+        const productObjPrice = element
+          .querySelector('.cart-list__price')
+          .innerHTML.trim();
 
-        const productObjQuantity = element.querySelector(
-          '.cart-list__quantity span'
-        ).innerHTML;
+        const productObjQuantity = element
+          .querySelector('.cart-list__quantity span')
+          .innerHTML.trim();
 
         const cartObj = new Object();
 
@@ -98,23 +226,37 @@ window.onload = function () {
         cartObj.id = productObjId;
         cartObj.image = productObjImage;
         cartObj.title = productObjTitle.trim();
-        cartObj.price = productObjPrice;
+        cartObj.price = productObjPrice.slice(0, -1);
         cartObj.quantity = productObjQuantity;
-        cartObj.isPaid = 'not';
 
-        const order = JSON.stringify(orderObj);
+        const order = orderObj;
+
+        const orderId = orderObjId;
+
+        const itemId = productObjId;
+
+        const itemPrice = cartObj.price;
 
         $.ajax({
           url: './assets/php/catalog/cart.php',
           method: 'post',
-          // dataType: 'json' /* Тип данных в ответе (xml, json, script, html). */,
-          data: { order },
+          // async: false,
+          data: {
+            order,
+            itemId,
+            orderId,
+            username,
+            productObjImage,
+            productObjTitle,
+            itemPrice,
+            productObjQuantity,
+            orderObjIsPaid,
+          },
           success: (response) => {
             if (response) console.log(response);
           },
         });
       });
-      e.preventDefault();
     }
   }
 
@@ -257,3 +399,46 @@ window.onload = function () {
     }
   }
 };
+
+function getUserName(userName) {
+  let username;
+  $.ajax({
+    url: './assets/php/catalog/get-user.php',
+    method: 'post',
+    async: false,
+    data: { userName },
+    success: (response) => {
+      try {
+        if (response) {
+          const responseFromServer = JSON.parse(response);
+
+          if (responseFromServer.status === 'success') {
+            username = responseFromServer.username;
+          }
+          if (responseFromServer.status === 'error') {
+            const cart = document.querySelector('.header__shopping-cart');
+            console.log('nobody');
+            cart.style.display = 'none';
+          }
+        }
+      } catch (error) {
+        const cart = document.querySelector('.header__shopping-cart');
+        const add = document.querySelectorAll('.products__btn-add');
+        const remove = document.querySelectorAll('.products__btn-remove');
+
+        cart.style.display = 'none';
+
+        add.forEach((btn) => {
+          btn.style.display = 'none';
+        });
+
+        remove.forEach((btn) => {
+          btn.style.display = 'none';
+        });
+
+        remove.style.display = 'none';
+      }
+    },
+  });
+  return username;
+}

@@ -1,7 +1,9 @@
 <?php
+session_start();
 
+require_once("../database/connect.php");
 
-$id = $_POST['orderID'];
+$id = $_POST['orderId'];
 $named = $_POST['firstdata'];
 $surnamed = $_POST['lastdata'];
 $usernamed = $_POST['userdata'];
@@ -12,70 +14,56 @@ $countrynamed = $_POST['countrydata'];
 $citynamed = $_POST['citydata'];
 $zipnamed = $_POST['zipdata'];
 
+print_r($_POST);
 
-$connect = mysqli_connect('sql.freedb.tech', 'freedb_webteam30', '@CWg2pvVMgWA%aU', 
-  'freedb_webshop');
+$sql = "INSERT INTO `order_data` 
+        VALUES ('$id', '$named', '$surnamed', '$usernamed', 
+        '$emailnamed', '$addressnamed', '$shippingnamed', 
+        '$countrynamed', '$citynamed', '$zipnamed')";
 
-if (!$connect) die('Error connecting to database');
+mysqli_query($connect, $sql);
 
+echo "$id";
 
-$query = "select * from ordersMain";
-$result = mysqli_query($connect, $query);
+$orderSQL = "SELECT `itemTitle`, `itemPrice`, `itemQuantity` 
+            FROM `ordersMain` WHERE `orderId`= '$id'";
 
-
-$sql = "INSERT INTO order_data (order_fn, order_ln, order_username, order_email, order_address, order_shipping, order_country, order_city, order_zip)
-VALUES ('$named', '$surnamed', '$usernamed', '$emailnamed', '$addressnamed', '$shippingnamed', '$countrynamed', '$citynamed', '$zipnamed')";
-
-
-
-if (mysqli_query($connect, $sql)) {
-    echo "\nSUCCESS!";
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($connect);
-}
-
-
-require_once("connect.php");
-$query = "select itemTitle, itemQuantity from ordersMain join order_data on order_shipping where orderId = ".$id;
-$result = mysqli_query($connect, $query);
+$result = mysqli_query($connect, $orderSQL);
 
 // Initialize an empty string to store the item prices
+$items = '';
+$totalItems = 0;
+$totalPrice = 0;
 
-while ($row = mysqli_fetch_assoc($result)) {
-    // Add the item price to the string
-    $itemTitle = $row['itemTitle'];
-    $itemQuantity = $row['itemQuantity'];
-    $order_shipping = $row['order_shipping'];
-
-    echo $itemQuantity;
-
-    echo $row['itemQuantity'];
-
-
+while ($order = mysqli_fetch_assoc($result)) {
+  $items .= "\n\t- " . $order['itemTitle'] . "(" . $order['itemQuantity'] . " PC.)";
+  $totalItems += $order['itemQuantity'];
+  $totalPrice += $order['itemPrice'] * $order['itemQuantity'];
 }
 
+// sending e-mail
+$mail_subject = strtoupper('order #' . $id);
 
+$send_mail_to = $_SESSION['logged-user']['username'];
+$send_mail_from = 'hitechnic.uu68@gmail.com';
 
-// Set the recipient email address
-$to = "mhayman30@gmail.com";
+$mail_message = 'DETAILS ABOUT YOUR ORDER: ' . "\r\n" .
+  'Order ID: ' . $id . "\r\n" .
+  'Ordered items: ' . $items . "\r\n" .
+  'Total items: ' . $totalItems . "\r\n" .
+  'Total price: ' . $totalPrice .  ' EUR' . "\r\n";
 
-// Set the email subject
-$subject = "Your order:";
+$mail_headers = "From: $send_mail_from" . "\r\n" .
+  "Reply-To: $send_mail_from" . "\r\n" .
+  "X-Mailer: PHP/" . phpversion();
 
+if (mail($send_mail_to, $mail_subject, $mail_message, $mail_headers)) {
+  $updateSQL = "UPDATE `ordersMain` SET `isPaid` = '1' 
+                WHERE `orderId`= '$id'";
 
-// Set the message
-
-$message = "You just ordered ". $itemQuantity. "bikes. \r\nNamed:". $itemTitle.
-"\r\nUsing ". $order_shipping;
-
-// Set the headers
-$headers = "From: sender@example.com" . "\r\n" .
-"CC: cc@example.com";
-
-// Send the email
-mail($to, $subject, $message, $headers);
-
-
-
+  mysqli_query($connect, $updateSQL);
+} else echo "NOOOO";
 
 mysqli_close($connect);
+
+header('Location: ../overview/overview.php');

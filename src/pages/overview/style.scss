@@ -123,6 +123,12 @@ h1 {
   font-weight: bold;
 }
 
+.item__img {
+  img {
+    width: 150px;
+  }
+}
+
 .order__price {
   display: flex;
   justify-content: right;

@@ -19,7 +19,7 @@ $totalItems = 0;
 
 while ($order = mysqli_fetch_assoc($orderResult)) {
   $insert = "INSERT INTO ordersMain (orderId, username, itemId, itemImage, itemTitle, itemPrice, itemQuantity, isPaid)
-      VALUES('$orderID', '{$order['username']}', '{$order['itemId']}', '{$order['itemImage']}', '{$order['itemTitle']}', '{$order['itemPrice']}', '{$order['itemQuantity']}', 'not')";
+      VALUES('$orderID', '{$order['username']}', '{$order['itemId']}', '{$order['itemImage']}', '{$order['itemTitle']}', '{$order['itemPrice']}', '{$order['itemQuantity']}', '1')";
   mysqli_query($connect, $insert);
 
   $items .= "\n\t- " . $order['itemTitle'] . "(" . $order['itemQuantity'] . " PC.)";

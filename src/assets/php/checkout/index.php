@@ -178,8 +178,6 @@ require_once('db.php');
           <form class="needs-validation" novalidate action="connect.php" method="post" name="myForm">
             <div class="row g-3">
               <div class="col-sm-6">
-                <input type="hidden" name="orderId" value="">
-
                 <label for="firstName" class="form-label">First name</label>
                 <input name="firstdata" type="text" class="form-control" id="firstName" placeholder="" value="" required>
                 <div class="invalid-feedback">
@@ -190,7 +188,7 @@ require_once('db.php');
               <div class="col-sm-6">
                 <label for="lastName" class="form-label">Last name</label>
                 <input name="lastdata" type="text" class="form-control" id="lastName" placeholder="" value="" required>
-                <div class="invalid-feedback">
+                <div class="invalid-feedback">hidden
                   Valid last name is required.
                 </div>
               </div>
@@ -402,13 +400,13 @@ require_once('db.php');
 
             <?php
 
-            $orderID_SQL = "SELECT MAX(orderId) FROM ordersMain WHERE username='anabut123123@gmail.com'";
+            $orderID_SQL = "SELECT MAX(orderId) FROM ordersMain WHERE username='$current_username'";
             $orderResult = mysqli_query($connect, $orderID_SQL);
 
 
             $orderId = mysqli_fetch_row($orderResult)[0];
 
-            echo '<input type="hidden" name="orderID" value="' . $orderId . '">';
+            echo '<input type="hidden" name="orderId" value="' . $orderId . '">';
 
             ?>
 
