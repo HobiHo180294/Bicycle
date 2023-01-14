@@ -13,8 +13,6 @@ if (
     'screenHeight' => $_POST['screenHeight'],
   ];
 
-  // print_r($_SESSION['screen-resolution']);
-
   $user_screen_width = $_SESSION['screen-resolution']['screenWidth'];
   $user_screen_height = $_SESSION['screen-resolution']['screenHeight'];
   $logged_user_email = $_POST['userEmailVal'];

@@ -190,20 +190,29 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
 
-  &__forgot-password {
-    display: inline-block;
-    margin-left: auto;
-    color: $lightgreen2;
-  }
+.forgot-password {
+  display: inline-block;
+  padding: 0;
+  margin-bottom: 30px;
+  margin-right: auto;
+  color: $lightgreen2;
 }
 
 .footer-login {
   &__register {
+    display: inline-block;
     background: none;
     border: none;
     color: $lightgreen2;
+    margin-bottom: 10px;
   }
+}
+
+.without-login {
+  display: block;
+  color: $lightgreen2;
 }
 /* Page styles end */
 

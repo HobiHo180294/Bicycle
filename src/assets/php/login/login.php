@@ -22,7 +22,7 @@ if (
                                         WHERE `username` = '$user_email' 
                                         AND `userPasswordHash` = '$encrypted_user_password'
                                         AND `isConfirmed` = '1'
-                                        AND (`isLogged` IS NULL OR `isLogged`='1')");
+                                        AND (`isLogged` IS NULL OR `isLogged` = '1')");
 
   // ! MESSAGES 
   $check_user_success = 'Congratulations with successful login into account!';
@@ -57,6 +57,8 @@ if (
                           `OS` = '$user_os', `status` = 'online'
                           WHERE `id` = '$session_user_id'");
 
+    print_r($_SESSION['logged-user']);
+
     mysqli_close($connect);
     // displayAlertAndRedirectTo($check_user_success, $catalog_page_location);
   }
@@ -67,36 +69,3 @@ if (
     displayAlertAndRedirectTo($check_user_error, $login_page_location);
   }
 }
-
-
-
-
-// $operatorLogin = filter_var(
-//   trim($_POST['operatorLogin']),
-//   FILTER_SANITIZE_STRING
-// );
-
-// $operatorPass = filter_var(
-//   trim($_POST['operatorPassword']),
-//   FILTER_SANITIZE_STRING
-// );
-
-// $check_operator = mysqli_query($connect, "SELECT * FROM `operators` WHERE `login` = '$operatorLogin' AND `password` = '$operatorPass'");
-
-// if (mysqli_num_rows($check_operator) > 0) {
-
-//   $operator = mysqli_fetch_assoc($check_operator);
-
-//   $_SESSION['operator'] = [
-//     "id" => $operator['id'],
-//     "login" => $operator['login'],
-//     "password" => $operator['password'],
-//   ];
-
-//   mysqli_close($connect);
-
-//   header('Location: requests.php');
-// } else {
-//   $_SESSION['message'] = 'Login or password incorrect!';
-//   header('Location: error-auth.php');
-// }
