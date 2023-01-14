@@ -257,13 +257,3 @@ window.onload = function () {
     }
   }
 };
-
-// const cartBody = document.querySelector('.cart-header__body _active');
-// console.log(cartBody);
-// if (cartBody) {
-//   for (let i = 1; i <= 10; i++) {
-//     const cartProductId =
-//       document.querySelector('.cart-list__item').dataset.cartPid;
-//     console.log(cartProductId);
-//   }
-// }

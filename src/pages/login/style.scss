@@ -202,10 +202,17 @@ body {
 
 .footer-login {
   &__register {
+    display: inline-block;
     background: none;
     border: none;
     color: $lightgreen2;
+    margin-bottom: 10px;
   }
+}
+
+.without-login {
+  display: block;
+  color: $lightgreen2;
 }
 /* Page styles end */
 

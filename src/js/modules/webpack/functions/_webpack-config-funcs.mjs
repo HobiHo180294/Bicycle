@@ -78,6 +78,10 @@ function useWebpackPlugins() {
           from: path.resolve(__dirname, 'src/assets/php/'),
           to: path.resolve(__dirname, 'dist/assets/php/'),
         },
+        {
+          from: path.resolve(__dirname, 'src/pages/checkout/'),
+          to: path.resolve(__dirname, 'dist/pages/checkout/'),
+        },
       ],
     }),
     new ESLintPlugin(),
