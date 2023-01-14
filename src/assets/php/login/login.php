@@ -22,7 +22,7 @@ if (
                                         WHERE `username` = '$user_email' 
                                         AND `userPasswordHash` = '$encrypted_user_password'
                                         AND `isConfirmed` = '1'
-                                        AND `isLogged` IS NULL");
+                                        AND (`isLogged` IS NULL OR `isLogged`='1')");
 
   // ! MESSAGES 
   $check_user_success = 'Congratulations with successful login into account!';

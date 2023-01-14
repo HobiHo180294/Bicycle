@@ -9,11 +9,65 @@ import json from '../../assets/json/json.json';
 
 import './style.scss';
 
+// search
+let lastResFind = ''; // последний удачный результат
+let copy_page = ''; // копия страницы в ихсодном виде
+
+const textFindBtn = document.querySelector('.text-find');
+function TrimStr(s) {
+  s = s.replace(/^\s+/g, '');
+  return s.replace(/\s+$/g, '');
+}
+textFindBtn.addEventListener('click', () => FindOnPage('text-to-find'));
+
+function FindOnPage(inputId) {
+  console.log('work');
+  // ищет текст на странице, в параметр передается ID поля для ввода
+  let obj = window.document.getElementById(inputId);
+  let textToFind;
+
+  if (obj) {
+    textToFind = TrimStr(obj.value); // обрезаем пробелы
+  } else {
+    alert('The entered phrase was not found');
+    return;
+  }
+  if (textToFind == '') {
+    alert('You did not enter anything');
+    return;
+  }
+
+  if (document.body.innerHTML.indexOf(textToFind) == '-1')
+    alert('Nothing found, please check your input!');
+
+  if (copy_page.length > 0) document.body.innerHTML = copy_page;
+  else copy_page = document.body.innerHTML;
+
+  document.body.innerHTML = document.body.innerHTML.replace(
+    eval('/name=' + lastResFind + '/gi'),
+    ' '
+  ); // стираем предыдущие якори для скрола
+  document.body.innerHTML = document.body.innerHTML.replace(
+    eval('/' + textToFind + '/gi'),
+    '<a name=' +
+      textToFind +
+      " style='background: #64c29e'>" +
+      textToFind +
+      '</a>'
+  ); // Заменяем найденный текст ссылками с якорем;
+  lastResFind = textToFind; // сохраняем фразу для поиска, чтобы в дальнейшем по ней стереть все ссылки
+  window.location = '#' + textToFind; // перемещаем скрол к последнему найденному совпадению
+
+  return false;
+}
+
 let orderIdCount = 1;
 
 window.onload = function () {
   // eslint-disable-next-line no-use-before-define
   document.addEventListener('click', documentActions);
+
+  getUserName('value');
 
   // Actions (click)
   function documentActions(e) {
@@ -140,6 +194,9 @@ window.onload = function () {
         });
       });
       e.preventDefault();
+      // document.querySelector('.cart-header__body').classList.remove('_active'); // disable form
+      // const cart = document.querySelector('.shopping-cart__body span');
+      // cart.innerHTML = '1';
     }
   }
 
@@ -291,12 +348,35 @@ function getUserName(userName) {
     async: false,
     data: { userName },
     success: (response) => {
-      if (response) {
-        const responseFromServer = JSON.parse(response);
+      try {
+        if (response) {
+          const responseFromServer = JSON.parse(response);
 
-        if (responseFromServer.status === 'success') {
-          username = responseFromServer.username;
+          if (responseFromServer.status === 'success') {
+            username = responseFromServer.username;
+          }
+          if (responseFromServer.status === 'error') {
+            const cart = document.querySelector('.header__shopping-cart');
+            console.log('nobody');
+            cart.style.display = 'none';
+          }
         }
+      } catch (error) {
+        const cart = document.querySelector('.header__shopping-cart');
+        const add = document.querySelectorAll('.products__btn-add');
+        const remove = document.querySelectorAll('.products__btn-remove');
+
+        cart.style.display = 'none';
+
+        add.forEach((btn) => {
+          btn.style.display = 'none';
+        });
+
+        remove.forEach((btn) => {
+          btn.style.display = 'none';
+        });
+
+        remove.style.display = 'none';
       }
     },
   });
