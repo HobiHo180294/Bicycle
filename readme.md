@@ -1,3 +1,3 @@
 # YEBO_BICYCLES
 
-I've created a website for the company "YEBO", specializing in bicycles sales and creation.
+Web team 30 created a website for the company "YEBO" (web-shop), specializing in bicycles sales and creation.
