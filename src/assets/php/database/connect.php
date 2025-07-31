@@ -1,5 +1,5 @@
 <?php
 
-$connect = mysqli_connect('sql.freedb.tech', 'freedb_webteam30', '@CWg2pvVMgWA%aU', 'freedb_webshop');
+$connect = mysqli_connect('sql.freedb.tech', 'freedb_annkondrat', '%w4ZJv&pV6&fAN%', 'freedb_diploma');
 
 if (!$connect) die('Error connecting to database');
