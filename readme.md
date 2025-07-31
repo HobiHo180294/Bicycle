@@ -128,4 +128,4 @@ You can explore how the application works by visiting the live demo:
 
 It showcases the core shopping experience — from browsing vintage bicycles to viewing product details — in a clean, responsive, and user-friendly interface.
 
-⚠️ _**Please note:** Please note that active development on this project is no longer maintained._
+⚠️ _**Please note:** Active development on this project is no longer maintained._
