@@ -31,6 +31,9 @@ Welcome to the future of bicycle commerce — a dynamic marketplace designed to 
 - File & Style Loaders – (css-loader, style-loader, sass-loader, etc.)
 - MiniCssExtractPlugin – for CSS extraction in production
 - Terser & CSS Minimizer – for production optimization
+- PHP - for server-side scripting and form handling
+- SQLite - lightweight database solution for storing application data
+- phpMyAdmin - GUI for managing SQLite or other databases
 
 ## 🔋 Features
 
